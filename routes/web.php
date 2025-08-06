@@ -11,6 +11,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
 Route::get('/dashboard', function () {
     return view('admin.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
