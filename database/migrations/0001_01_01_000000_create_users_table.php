@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->string('google_id')->unique()->nullable();
+            $table->string('google_token')->nullable();
+            $table->string('google_refresh_token')->nullable();
+            $table->text('google_avatar')->nullable();
             $table->string('role')->default('user'); 
             $table->string('status')->default('1'); 
             $table->rememberToken();

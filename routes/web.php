@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\googlecontroller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use function Pest\Laravel\get;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,3 +25,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
+
+Route::get('/google/redirect' , [googlecontroller::class , 'index'])->name('google.redirect');
+Route::get('/google/callback' , [googlecontroller::class , 'verify']);
