@@ -31,6 +31,11 @@ require __DIR__.'/auth.php';
 
 Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
 
-
+//google login
 Route::get('/google/redirect' , [googlecontroller::class , 'index'])->name('google.redirect');
 Route::get('/google/callback' , [googlecontroller::class , 'verify']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+ 
+});
