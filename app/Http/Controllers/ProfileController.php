@@ -55,6 +55,11 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+         $notification = array(
+            'message' => 'your logout  Successfully',
+            'alert-type' => 'success'
+         ); 
+
+        return Redirect::to('/')->with($notification);
     }
 }

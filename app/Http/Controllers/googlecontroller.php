@@ -46,6 +46,11 @@ class googlecontroller extends Controller
         }
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'You have successfully logged in with Google');
+         $notification = array(
+            'message' => 'Welcome to Dashbaord Successfully',
+            'alert-type' => 'success'
+         ); 
+
+        return redirect()->route('dashboard')->with($notification);
     }
 }
