@@ -37,5 +37,6 @@ Route::get('/google/callback' , [googlecontroller::class , 'verify']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
  
 });
