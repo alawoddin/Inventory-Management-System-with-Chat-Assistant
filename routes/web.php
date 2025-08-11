@@ -59,10 +59,10 @@ Route::controller(BrankController::class)->group(function() {
 
 Route::controller(WareHouseController::class)->group(function() {
         Route::get('/all/warehouse' , 'AllWarehouse')->name('all.warehouse');
-        Route::get('/add/brand' , 'AddBrand')->name('add.brand');
-        Route::post('/store/brand' , 'StoreBrand')->name('store.brand');
-        Route::get('/edit/brand/{id}' , 'EditBrand')->name('edit.brand');
-        Route::post('/update/brand' , 'UpdateBrand')->name('update.brand');
-        Route::get('/delete/brand/{id}' , 'DeletBrand')->name('delete.brand');
+        Route::get('/add/warehouse' , 'AddWarehouse')->name('add.warehouse');
+        Route::post('/store/warehouse' , 'StoreWarehouse')->name('store.warehouse');
+        Route::get('/edit/warehouse/{id}' , 'EditWarehouse')->name('edit.warehouse');
+        Route::post('/update/warehouse' , 'UpdateWarehouse')->name('update.warehouse');
+        Route::get('/delete/warehouse/{id}' , 'DeleteWarehouse')->name('delete.warehouse');
     });
 });

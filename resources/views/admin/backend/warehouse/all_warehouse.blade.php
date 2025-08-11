@@ -13,7 +13,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="{{ route('add.brand') }}" class="btn btn-secondary">Add WareHouse</a>
+                     <a href="{{ route('add.warehouse') }}" class="btn btn-secondary">Add WareHouse</a>
                 </ol>
             </div>
         </div>
@@ -48,8 +48,8 @@
                 <td>{{ $item->phone }}</td>
                 <td>{{ $item->city }}</td>
                 <td>
-            <a href="{{ route('edit.brand',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
-            <a href="{{ route('delete.brand',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
+            <a href="{{ route('edit.warehouse',$item->id) }}" class="btn btn-secondary btn-sm">Edit</a>  
+            <a href="{{ route('delete.warehouse',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
                 </td> 
             </tr>
             @endforeach 
