@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\BrankController;
 use App\Http\Controllers\googlecontroller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
  
+});
+
+//backend controller is start
+
+Route::middleware('auth')->group(function() {
+    Route::controller(BrankController::class)->group(function() {
+        Route::get('/all/brand' , 'AllBrand')->name('all.brand');
+        Route::get('/add/brand' , 'AddBrand')->name('add.brand');
+    });
 });
