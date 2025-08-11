@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BrankController;
+use App\Http\Controllers\Backend\WareHouseController;
 use App\Http\Controllers\googlecontroller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -46,8 +47,18 @@ Route::middleware('auth')->group(function () {
 //backend controller is start
 
 Route::middleware('auth')->group(function() {
-    Route::controller(BrankController::class)->group(function() {
+  
+Route::controller(BrankController::class)->group(function() {
         Route::get('/all/brand' , 'AllBrand')->name('all.brand');
+        Route::get('/add/brand' , 'AddBrand')->name('add.brand');
+        Route::post('/store/brand' , 'StoreBrand')->name('store.brand');
+        Route::get('/edit/brand/{id}' , 'EditBrand')->name('edit.brand');
+        Route::post('/update/brand' , 'UpdateBrand')->name('update.brand');
+        Route::get('/delete/brand/{id}' , 'DeletBrand')->name('delete.brand');
+    });
+
+Route::controller(WareHouseController::class)->group(function() {
+        Route::get('/all/warehouse' , 'AllWarehouse')->name('all.warehouse');
         Route::get('/add/brand' , 'AddBrand')->name('add.brand');
         Route::post('/store/brand' , 'StoreBrand')->name('store.brand');
         Route::get('/edit/brand/{id}' , 'EditBrand')->name('edit.brand');
