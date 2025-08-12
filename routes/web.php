@@ -4,10 +4,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BrankController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\ProCategoryController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\WareHouseController;
 use App\Http\Controllers\googlecontroller;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 use function Pest\Laravel\get;
@@ -93,6 +95,15 @@ Route::controller(ProCategoryController::class)->group(function() {
         Route::get('/edit/category/{id}', 'EditCategory');
         Route::post('/update/category', 'UpdateCategory')->name('update.category'); 
         Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+    });
+
+Route::controller(ProductController::class)->group(function() {
+        Route::get('/all/product' , 'AllProduct')->name('all.product');
+        Route::get('/add/product' , 'AddProduct')->name('add.product');
+        Route::post('/store/product' , 'StoreProduct')->name('store.product');
+        Route::get('/edit/product/{id}', 'EditProduct')->name('edit.product');
+        Route::post('/update/product', 'UpdateProduct')->name('update.product'); 
+        Route::get('/delete/product/{id}', 'DeleteProduct')->name('delete.product');
     });
 
 });

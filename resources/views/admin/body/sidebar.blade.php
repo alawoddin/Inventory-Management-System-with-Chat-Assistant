@@ -124,6 +124,23 @@
                     </div>
                 </li>
 
+                            <li>
+                    <a href="#Product" data-bs-toggle="collapse">
+                        <i data-feather="users"></i>
+                        <span> Product Manage </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="Product">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('all.product') }}" class="tp-link">All Product </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </li>
+
                 <li>
                     <a href="#sidebarError" data-bs-toggle="collapse">
                         <i data-feather="alert-octagon"></i>
@@ -142,6 +159,8 @@
                         </ul>
                     </div>
                 </li>
+
+                
 
 
 
