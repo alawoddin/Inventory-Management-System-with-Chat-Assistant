@@ -86,6 +86,8 @@
                     
             </ul>
         </div>
+
+
     </li>
 
            <li>
@@ -98,6 +100,23 @@
             <ul class="nav-second-level">
                 <li>
                     <a href="{{route('all.customer')}}" class="tp-link">All Customer </a>
+                </li>
+             
+                    
+            </ul>
+        </div>
+    </li>
+
+     <li>
+        <a href="#Category" data-bs-toggle="collapse">
+            <i data-feather="users"></i>
+            <span> Category Manage </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="Category">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{route('all.category')}}" class="tp-link">All Category </a>
                 </li>
              
                     

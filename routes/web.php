@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BrankController;
 use App\Http\Controllers\Backend\CustomerController;
+use App\Http\Controllers\Backend\ProCategoryController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\WareHouseController;
 use App\Http\Controllers\googlecontroller;
@@ -86,5 +87,12 @@ Route::controller(CustomerController::class)->group(function() {
         Route::get('/delete/customer/{id}' , 'DeleteCustomer')->name('delete.customer');
     });
 
+Route::controller(ProCategoryController::class)->group(function() {
+        Route::get('/all/category' , 'AllCategory')->name('all.category');
+        Route::post('/store/category' , 'StoreCategory')->name('store.category');
+        Route::get('/edit/category/{id}', 'EditCategory');
+        Route::post('/update/category', 'UpdateCategory')->name('update.category'); 
+        Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+    });
 
 });
