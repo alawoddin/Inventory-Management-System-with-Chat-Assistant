@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BrankController;
+use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\WareHouseController;
 use App\Http\Controllers\googlecontroller;
 use App\Http\Controllers\ProfileController;
@@ -64,5 +65,14 @@ Route::controller(WareHouseController::class)->group(function() {
         Route::get('/edit/warehouse/{id}' , 'EditWarehouse')->name('edit.warehouse');
         Route::post('/update/warehouse' , 'UpdateWarehouse')->name('update.warehouse');
         Route::get('/delete/warehouse/{id}' , 'DeleteWarehouse')->name('delete.warehouse');
+    });
+
+Route::controller(SupplierController::class)->group(function() {
+        Route::get('/all/supplier' , 'AllSupplier')->name('all.supplier');
+        Route::get('/add/supplier' , 'AddSupplier')->name('add.supplier');
+        Route::post('/store/supplier' , 'StoreSupplier')->name('store.supplier');
+        Route::get('/edit/supplier/{id}' , 'EditSupplier')->name('edit.supplier');
+        Route::post('/update/supplier' , 'UpdateSupplier')->name('update.supplier');
+        Route::get('/delete/supplier/{id}' , 'DeleteSupplier')->name('delete.supplier');
     });
 });
