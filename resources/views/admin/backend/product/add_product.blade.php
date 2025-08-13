@@ -1,7 +1,6 @@
+
 @extends('admin.admin_master')
 @section('admin')
-
-
 
 <div class="content d-flex flex-column flex-column-fluid">
    <div class="d-flex flex-column-fluid">
@@ -19,14 +18,14 @@
         </div>
          <div class="card">
             <div class="card-body">
-<form action=" " method="post" enctype="multipart/form-data">
+<form action="{{ route('store.product') }}" method="post" enctype="multipart/form-data">
    @csrf
    <div class="row">
       <div class="col-xl-8">
          <div class="card">
             <div class="row">
                <div class="col-md-6 mb-3">
-                  <label class="form-label">Name:  <span class="text-danger">*</span></label>
+                  <label class="form-label">Product Name:  <span class="text-danger">*</span></label>
                   <input type="text" name="name" placeholder="Enter Name" class="form-control">  
                </div>
                <div class="col-md-6 mb-3">
