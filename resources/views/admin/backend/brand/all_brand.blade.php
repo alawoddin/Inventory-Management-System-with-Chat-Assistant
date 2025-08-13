@@ -1,9 +1,9 @@
-a@extends('admin.admin_master')
+@extends('admin.admin_master')
 @section('admin')
     <div class="content">
 
         <!-- Start Content-->
-        <div class="container-xxl">
+        <div class="container-fluid my-0">
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
