@@ -8,7 +8,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Http\Request;
 
-class BrankController extends Controller
+class BrandController extends Controller
 {
     public function AllBrand() {
         $brand = Brand::latest()->get();
