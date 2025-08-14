@@ -64,7 +64,7 @@
                                             </td>
                                             <td>
 
-                                                <a title="Details" href="{{ route('edit.customer', $item->id) }}"
+                                                <a title="Details" href="{{ route('details.product', $item->id) }}"
                                                     class="btn btn-info btn-sm"> <span
                                                         class="mdi mdi-eye-circle mdi-18px"></span> </a>
 
