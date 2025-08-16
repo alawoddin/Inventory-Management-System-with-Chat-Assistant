@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ProCategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\PurchaseController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\WareHouseController;
 use App\Http\Controllers\googlecontroller;
@@ -105,6 +106,15 @@ Route::controller(ProductController::class)->group(function() {
         Route::get('/details/product/{id}', 'DetailsProduct')->name('details.product');
         Route::post('/update/product', 'UpdateProduct')->name('update.product'); 
         Route::get('/delete/product/{id}', 'DeleteProduct')->name('delete.product');
+    });
+
+Route::controller(PurchaseController::class)->group(function() {
+        Route::get('/all/purchase' , 'AllPurchase')->name('all.purchase');
+        Route::get('/add/purchase' , 'AddPurchase')->name('add.purchase');
+        Route::post('/store/purchase' , 'StorePurchase')->name('store.purchase');
+        Route::get('/edit/purchase/{id}', 'EditPurchase')->name('edit.purchase');
+        Route::post('/update/purchase', 'UpdatePurchase')->name('update.purchase'); 
+        Route::get('/delete/purchase/{id}', 'DeletePurchase')->name('delete.purchase');
     });
 
 });
