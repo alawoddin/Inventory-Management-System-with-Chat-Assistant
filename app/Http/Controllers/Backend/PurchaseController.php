@@ -12,6 +12,8 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use App\Models\Purchase; 
 use App\Models\PurchaseItem;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
 class PurchaseController extends Controller
 {
@@ -47,4 +49,63 @@ class PurchaseController extends Controller
     
     }
      // End Method 
+    
+    public function StorePurchase(Request $request){
+
+        $request->validate([
+            'date' => 'required|date',
+            'status' => 'required',
+            'supplier_id' => 'required',
+        ]);
+
+    try {
+
+        DB::beginTransaction();
+
+        $grandTotal = 0;
+
+        $purchase = Purchase::create([
+            'date' => $request->date,
+            'warehouse_id' => $request->warehouse_id,
+            'supplier_id' => $request->supplier_id,
+            'discount' => $request->discount ?? 0,
+            'shipping' => $request->shipping ?? 0,
+            'status' => $request->status,
+            'note' => $request->note,
+            'grand_total' => 0, 
+        ]);
+
+        /// Store Purchase Items & Update Stock 
+    foreach($request->products as $productData){
+        $product = Product::findOrFail($productData['id']);
+        $netUnitCost = $productData['net_unit_cost'] ?? $product->price;
+
+        if ($netUnitCost === null) {
+            throw new \Exception("Net Unit cost is missing ofr the product id" . $productData['id']);
+        }
+
+        $subtotal = ($netUnitCost * $productData['quantity']) - ($productData['discount'] ?? 0);
+        $grandTotal += $subtotal;
+
+        PurchaseItem::create([
+            'purchase_id' => $purchase->id,
+            'product_id' => $productData['id'],
+            'net_unit_cost' => $netUnitCost,
+            'stock' => $product->product_qty + $productData['quantity'],
+            'quantity' => $productData['quantity'],
+            'discount' => $productData['discount'] ?? 0,
+            'subtotal' => $subtotal, 
+        ]);
+
+
+    }
+
+
+       
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
+
+    }
+    // End Method 
 }
