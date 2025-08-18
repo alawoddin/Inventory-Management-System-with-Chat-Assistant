@@ -97,15 +97,26 @@ class PurchaseController extends Controller
             'subtotal' => $subtotal, 
         ]);
 
+        $product->increment('product_qty' , $productData['quantity']);
 
     }
+
+    $purchase->update(['grand_total' => $grandTotal + $request->shipping - $request->discount]);
+
+    DB::commit();
+
+       $notification = array(
+        'message' => 'Purchase Stored Successfully',
+        'alert-type' => 'success'
+     ); 
+     return redirect()->route('all.purchase')->with($notification);
 
 
        
-    } catch (\Throwable $th) {
-        //throw $th;
-    }
-
+     } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => $e->getMessage()], 500);
+      } 
     }
     // End Method 
 }
