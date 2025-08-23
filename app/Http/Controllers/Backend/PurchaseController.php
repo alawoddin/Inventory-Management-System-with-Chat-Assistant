@@ -215,9 +215,19 @@ public function UpdatePurchase(Request $request){
     }   
 }
 
-    // public function DetailsPurchase($id) {
-    //     $purchase = Purchase::with(['supplier', 'warehouse', 'purchaseItems.product'])->findOrFail($id);
+  public function DetailsPurchase($id){
+        $purchase = Purchase::with(['supplier','purchaseItems.product'])->find($id);
+        return view('admin.backend.purchase.details_purchase',compact('purchase'));
 
-    //     return view('admin.backend.purchase.details_purchase', compact('purchase'));
-    // }
+    }
+     // End Method 
+
+      public function InvoicePurchase($id){
+        $purchase = Purchase::with(['supplier','warehouse','purchaseItems.product'])->find($id);
+
+        $pdf = Pdf::loadView('admin.backend.purchase.invoice_pdf',compact('purchase'));
+        return $pdf->download('purchase_'.$id.'.pdf');
+
+    }
+     // End Method 
 }
