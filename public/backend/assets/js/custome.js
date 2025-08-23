@@ -275,7 +275,7 @@ function updateGrandTotal() {
 
               // Set modal values
               document.getElementById("modalTitle").innerText = productName;
-              document.getElementById("modalPrice").value = "TK " + productPrice;
+              document.getElementById("modalPrice").value = "AFG " + productPrice;
               modal.setAttribute("data-id", productId); // Store productId in modal
 
               // Show modal
@@ -291,7 +291,7 @@ function updateGrandTotal() {
 
   // Save changes event
   document.getElementById("saveChanges").addEventListener("click", function () {
-    let updatedPrice = parseFloat(document.getElementById("modalPrice").value.replace("TK ", ""));
+    let updatedPrice = parseFloat(document.getElementById("modalPrice").value.replace("AFG ", ""));
     let discountValue = parseFloat(document.getElementById("modalDiscount").value) || 0;
     let discountType = document.getElementById("modalDiscountType").value;
     let productId = modal.getAttribute("data-id");
