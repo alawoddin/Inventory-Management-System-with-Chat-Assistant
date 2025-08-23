@@ -3,7 +3,7 @@
     <div class="content">
 
         <!-- Start Content-->
-        <div class="container-xxl">
+         <div class="container-fluid my-0">
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
@@ -15,6 +15,8 @@
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="row g-3">
+
+      
 
                         <div class="col-md-6 col-xl-3">
                             <div class="card">

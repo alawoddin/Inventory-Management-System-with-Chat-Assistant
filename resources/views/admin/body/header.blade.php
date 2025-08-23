@@ -9,11 +9,16 @@
                       </li>
                       <li class="d-none d-lg-block">
                           <div class="position-relative topbar-search">
-                              <input type="text" class="form-control bg-light bg-opacity-75 border-light ps-4"
+                              <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
+
+                              <dotlottie-wc
+                                  src="https://lottie.host/fa10dc14-037b-4aa5-b273-5a5d0872d903/74OfnMyoZ4.lottie"
+                                  style="width: 100px;height: 50px" speed="1" autoplay loop></dotlottie-wc>
+                              {{-- <input type="text" class="form-control bg-light bg-opacity-75 border-light ps-4"
                                   placeholder="Search...">
                               <i
                                   class="mdi mdi-magnify fs-16 position-absolute text-muted top-50 translate-middle-y ms-2"></i>
-                          </div>
+                          </div> --}}
                       </li>
                   </ul>
 
