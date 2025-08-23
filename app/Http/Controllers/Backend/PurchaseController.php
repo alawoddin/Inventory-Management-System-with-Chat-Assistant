@@ -14,6 +14,8 @@ use App\Models\Purchase;
 use App\Models\PurchaseItem;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
+ use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class PurchaseController extends Controller
 {
@@ -101,7 +103,9 @@ class PurchaseController extends Controller
 
     }
 
-    $purchase->update(['grand_total' => $grandTotal + $request->shipping - $request->discount]);
+    
+
+    // $purchase->update(['grand_total' => $grandTotal + $request->shipping - $request->discount]);
 
     DB::commit();
 
@@ -131,86 +135,89 @@ class PurchaseController extends Controller
         return view('admin.backend.purchase.edit_purchase', compact('editData', 'suppliers', 'warehouses'));
     }
 
-     public function UpdatePurchase(Request $request){
+public function UpdatePurchase(Request $request){
+    $id = $request->id;
 
-        $id = $request->id;
+    $request->validate([
+        'date' => 'required|date',
+        'status' => 'required', 
+    ]); 
 
-        $request->validate([
-            'date' => 'required|date',
-            'status' => 'required', 
-        ]); 
+    DB::beginTransaction(); 
 
-        DB::beginTransaction(); 
-
-        try {
-
-            $purchase = Purchase::findOrFail($id);
-
-            $purchase->update([
-                'date' => $request->date,
-                'warehouse_id' => $request->warehouse_id,
-                'supplier_id' => $request->supplier_id,
-                'discount' => $request->discount ?? 0,
-                'shipping' => $request->shipping ?? 0,
-                'status' => $request->status,
-                'note' => $request->note,
-                'grand_total' => $request->grand_total, 
-            ]);
-
-        /// Get Old Purchase Items 
-        $oldPurchaseItems = PurchaseItem::where('purchase_id',$purchase->id)->get();
-
-        /// Loop for old purchase items and decrement product qty
-         foreach($oldPurchaseItems as $oldItem){
-            $product = Product::find($oldItem->product_id);
-            if ($product) {
-                $product->decrement('product_qty',$oldItem->quantity);
-                // Decrement old quantity 
-            }
-         }
-
-         /// Delete old Purchase Items 
-         PurchaseItem::where('purchase_id',$purchase->id)->delete();
-
-         // loop for new products and insert new purchase items
-
+    try {
+        $purchase = Purchase::findOrFail($id);
+        
+        // Calculate the actual grand total from products
+        $grandTotal = 0;
         foreach($request->products as $product_id => $productData){
-        PurchaseItem::create([
-            'purchase_id' => $purchase->id,
-            'product_id' => $product_id,
-            'net_unit_cost' => $productData['net_unit_cost'],
-            'stock' => $productData['stock'],
-            'quantity' => $productData['quantity'],
-            'discount' => $productData['discount'] ?? 0,
-            'subtotal' => $productData['subtotal'],  
+            $grandTotal += $productData['subtotal'];
+        }
+        
+        // Apply discount and shipping to the calculated total
+        $finalGrandTotal = $grandTotal - ($request->discount ?? 0) + ($request->shipping ?? 0);
+
+        $purchase->update([
+            'date' => $request->date,
+            'warehouse_id' => $request->warehouse_id,
+            'supplier_id' => $request->supplier_id,
+            'discount' => $request->discount ?? 0,
+            'shipping' => $request->shipping ?? 0,
+            'status' => $request->status,
+            'note' => $request->note,
+            'grand_total' => $finalGrandTotal, // Use calculated total instead of request value
         ]);
 
-        /// Update product stock by incremeting new quantity 
-        $product = Product::find($product_id);
-        if ($product) {
-            $product->increment('product_qty',$productData['quantity']);
-            // Increment new quantity
-         } 
-       }
+        // Get Old Purchase Items 
+        $oldPurchaseItems = PurchaseItem::where('purchase_id', $purchase->id)->get();
 
-       DB::commit();
+        // Loop for old purchase items and decrement product qty
+        foreach($oldPurchaseItems as $oldItem){
+            $product = Product::find($oldItem->product_id);
+            if ($product) {
+                $product->decrement('product_qty', $oldItem->quantity);
+            }
+        }
 
-       $notification = array(
-           'message' => 'Purchase Updated Successfully',
-           'alert-type' => 'success'
+        // Delete old Purchase Items 
+        PurchaseItem::where('purchase_id', $purchase->id)->delete();
+
+        // Loop for new products and insert new purchase items
+        foreach($request->products as $product_id => $productData){
+            PurchaseItem::create([
+                'purchase_id' => $purchase->id,
+                'product_id' => $product_id,
+                'net_unit_cost' => $productData['net_unit_cost'],
+                'stock' => $productData['stock'],
+                'quantity' => $productData['quantity'],
+                'discount' => $productData['discount'] ?? 0,
+                'subtotal' => $productData['subtotal'],  
+            ]);
+
+            // Update product stock by incrementing new quantity 
+            $product = Product::find($product_id);
+            if ($product) {
+                $product->increment('product_qty', $productData['quantity']);
+            } 
+        }
+
+        DB::commit();
+
+        $notification = array(
+            'message' => 'Purchase Updated Successfully',
+            'alert-type' => 'success'
         ); 
         return redirect()->route('all.purchase')->with($notification);  
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => $e->getMessage()], 500);
-          }   
-    }
-    // End Method 
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => $e->getMessage()], 500);
+    }   
+}
 
-    public function DetailsPurchase($id) {
-        $purchase = Purchase::with(['supplier', 'warehouse', 'purchaseItems.product'])->findOrFail($id);
-        
-        return view('admin.backend.purchase.details_purchase', compact('purchase'));
-    }
+    // public function DetailsPurchase($id) {
+    //     $purchase = Purchase::with(['supplier', 'warehouse', 'purchaseItems.product'])->findOrFail($id);
+
+    //     return view('admin.backend.purchase.details_purchase', compact('purchase'));
+    // }
 }
