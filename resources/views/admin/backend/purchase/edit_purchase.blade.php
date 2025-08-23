@@ -151,15 +151,15 @@
                 <tbody>
                    <tr>
                       <td class="py-3">Discount</td>
-                      <td class="py-3" id="displayDiscount">TK {{ $editData->discount }}</td>
+                      <td class="py-3" id="displayDiscount">AFG {{ $editData->discount }}</td>
                    </tr>
                    <tr>
                       <td class="py-3">Shipping</td>
-                      <td class="py-3" id="shippingDisplay">TK {{ $editData->shipping }}</td>
+                      <td class="py-3" id="shippingDisplay">AFG {{ $editData->shipping }}</td>
                    </tr>
                    <tr>
                       <td class="py-3 text-primary">Grand Total</td>
-                      <td class="py-3 text-primary" id="grandTotal">TK {{ $editData->grand_total }}</td>
+                      <td class="py-3 text-primary" id="grandTotal">AFG {{ $editData->grand_total }}</td>
                       <input type="hidden" name="grand_total" value="{{ $editData->grand_total }}">
                    </tr>      
                    
@@ -179,7 +179,7 @@
                    </tr>
                    <tr class="d-none">
                       <td class="py-3">Due Amount</td>
-                      <td class="py-3" id="dueAmount">TK 0.00</td>
+                      <td class="py-3" id="dueAmount">AFG 0.00</td>
                       <input type="hidden" name="due_amount">
                    </tr>
               
@@ -328,7 +328,7 @@
           }
  
           // Update Grand Total display
-          document.getElementById("grandTotal").textContent = `TK ${grandTotal.toFixed(2)}`;
+          document.getElementById("grandTotal").textContent = `AFG ${grandTotal.toFixed(2)}`;
  
           // Also update the hidden input field
           document.getElementById("grandTotalInput").value = grandTotal.toFixed(2);
