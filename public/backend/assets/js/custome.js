@@ -210,7 +210,7 @@ function updateGrandTotal() {
     }
 
     // Update Grand Total display
-    document.getElementById("grandTotal").textContent = `TK ${grandTotal.toFixed(2)}`;
+    document.getElementById("grandTotal").textContent = `AFG ${grandTotal.toFixed(2)}`;
 
     document.querySelector("input[name='grand_total']").value = grandTotal.toFixed(2);
 
@@ -261,7 +261,7 @@ function updateGrandTotal() {
   // Function to show modal
   function showModal(productName, productPrice) {
         document.getElementById("modalTitle").innerText = productName;
-        document.getElementById("modalPrice").value = "TK " + productPrice;
+        document.getElementById("modalPrice").value = "AFG " + productPrice;
         modal.style.display = "flex";
   }
 
