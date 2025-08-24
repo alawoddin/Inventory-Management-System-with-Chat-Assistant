@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
-use App\Models\Product; 
+use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\Supplier; 
 use App\Models\WareHouse;
 use Intervention\Image\ImageManager;
@@ -96,4 +97,11 @@ class ReturnPurchaseController extends Controller
       } 
     }
     // End Method 
+
+  public function DetailsReturnPurchase($id){
+        $purchase = ReturnPurchase::with(['supplier','purchaseItems.product'])->find($id);
+        return view('admin.backend.return-purchase.return_purchase_details',compact('purchase'));
+
+    }
+     // End Method 
 }
