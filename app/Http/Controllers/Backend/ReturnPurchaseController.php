@@ -122,82 +122,117 @@ class ReturnPurchaseController extends Controller
     }
     // End Method 
 
-    public function UpdateReturnPurchase(Request $request,$id){
+public function UpdateReturnPurchase(Request $request, $id)
+{
+    $request->validate([
+        'date' => 'required|date',
+        'status' => 'required', 
+    ]); 
 
-        $request->validate([
-            'date' => 'required|date',
-            'status' => 'required', 
-        ]); 
+    DB::beginTransaction(); 
 
-        DB::beginTransaction(); 
+    try {
+        $purchase = ReturnPurchase::findOrFail($id);
 
-        try {
+        // ✅ Step 1: Reset grand total calculation
+        $subtotal = 0;
 
-            $purchase = ReturnPurchase::findOrFail($id);
+        foreach ($request->products as $product_id => $productData) {
+            $subtotal += $productData['subtotal'];
+        }
 
-            $purchase->update([
-                'date' => $request->date,
-                'warehouse_id' => $request->warehouse_id,
-                'supplier_id' => $request->supplier_id,
-                'discount' => $request->discount ?? 0,
-                'shipping' => $request->shipping ?? 0,
-                'status' => $request->status,
-                'note' => $request->note,
-                'grand_total' => $request->grand_total, 
-            ]);
+        $discount = $request->discount ?? 0;
+        $shipping = $request->shipping ?? 0;
 
-        /// Get Old Purchase Items 
-        $oldPurchaseItems = ReturnPurchaseItem::where('return_purchase_id',$purchase->id)->get();
+        $grandTotal = ($subtotal - $discount) + $shipping;
 
-        /// Loop for old purchase items and decrement product qty
-         foreach($oldPurchaseItems as $oldItem){
-            $product = Product::find($oldItem->product_id);
-            if ($product) {
-                $product->increment('product_qty',$oldItem->quantity);
-                // Increment old quantity 
-            }
-         }
-
-         /// Delete old Purchase Items 
-         ReturnPurchaseItem::where('return_purchase_id',$purchase->id)->delete();
-
-         // loop for new products and insert new purchase items
-
-        foreach($request->products as $product_id => $productData){
-          ReturnPurchaseItem::create([
-            'return_purchase_id' => $purchase->id,
-            'product_id' => $product_id,
-            'net_unit_cost' => $productData['net_unit_cost'],
-            'stock' => $productData['stock'],
-            'quantity' => $productData['quantity'],
-            'discount' => $productData['discount'] ?? 0,
-            'subtotal' => $productData['subtotal'],  
+        // ✅ Step 2: Update purchase record
+        $purchase->update([
+            'date' => $request->date,
+            'warehouse_id' => $request->warehouse_id,
+            'supplier_id' => $request->supplier_id,
+            'discount' => $discount,
+            'shipping' => $shipping,
+            'status' => $request->status,
+            'note' => $request->note,
+            'grand_total' => $grandTotal, // ✅ Recalculated
         ]);
 
-        /// Update product stock by incremeting new quantity 
-        $product = Product::find($product_id);
-        if ($product) {
-            $product->decrement('product_qty',$productData['quantity']);
-            // Increment new quantity
-         } 
-       }
+        // ✅ Step 3: Restore old stock
+        $oldPurchaseItems = ReturnPurchaseItem::where('return_purchase_id', $purchase->id)->get();
+        foreach ($oldPurchaseItems as $oldItem) {
+            $product = Product::find($oldItem->product_id);
+            if ($product) {
+                $product->increment('product_qty', $oldItem->quantity);
+            }
+        }
 
-       DB::commit();
+        // ✅ Step 4: Delete old items
+        ReturnPurchaseItem::where('return_purchase_id', $purchase->id)->delete();
 
-       $notification = array(
-           'message' => 'Return Purchase Updated Successfully',
-           'alert-type' => 'success'
-        ); 
+        // ✅ Step 5: Insert new items
+        foreach ($request->products as $product_id => $productData) {
+            ReturnPurchaseItem::create([
+                'return_purchase_id' => $purchase->id,
+                'product_id' => $product_id,
+                'net_unit_cost' => $productData['net_unit_cost'],
+                'stock' => $productData['stock'],
+                'quantity' => $productData['quantity'],
+                'discount' => $productData['discount'] ?? 0,
+                'subtotal' => $productData['subtotal'],  
+            ]);
+
+            $product = Product::find($product_id);
+            if ($product) {
+                $product->decrement('product_qty', $productData['quantity']);
+            }
+        }
+
+        DB::commit();
+
+        $notification = [
+            'message' => 'Return Purchase Updated Successfully',
+            'alert-type' => 'success'
+        ]; 
         return redirect()->route('all.return.purchase')->with($notification);  
 
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => $e->getMessage()], 500);
+    }   
+}
+
+    
+     public function DeleteReturnPurchase($id){
+        try {
+          DB::beginTransaction();
+          $purchase = ReturnPurchase::findOrFail($id);
+          $purchaseItems = ReturnPurchaseItem::where('return_purchase_id',$id)->get();
+
+          foreach($purchaseItems as $item){
+            $product = Product::find($item->product_id);
+            if ($product) {
+                $product->increment('product_qty',$item->quantity);
+            }
+          }
+          ReturnPurchaseItem::where('return_purchase_id',$id)->delete();
+          $purchase->delete();
+          DB::commit();
+
+          $notification = array(
+            'message' => 'Return Purchase Deleted Successfully',
+            'alert-type' => 'success'
+         ); 
+         return redirect()->route('all.return.purchase')->with($notification);  
+            
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
-          }   
+          }  
     }
     // End Method 
 
-    
+
 
 
 
