@@ -138,7 +138,7 @@ Route::controller(ReturnPurchaseController::class)->group(function(){
 Route::controller(SaleController::class)->group(function(){
     Route::get('/all/sale', 'AllSales')->name('all.sale');
     Route::get('/add/sale', 'AddSales')->name('add.sales');
-    // Route::post('/store/return/purchase', 'StoreReturnPurchase')->name('store.return.purchase');
+    Route::post('/store/sale', 'StoreSales')->name('store.sale');
     // Route::get('/details/return/purchase/{id}', 'DetailsReturnPurchase')->name('details.return.purchase');
     // Route::get('/invoice/return/purchase/{id}', 'InvoiceReturnPurchase')->name('invoice.return.purchase');
     // Route::get('/edit/return/purchase/{id}', 'EditReturnPurchase')->name('edit.return.purchase'); 
