@@ -142,7 +142,7 @@ Route::controller(SaleController::class)->group(function(){
     // Route::get('/details/return/purchase/{id}', 'DetailsReturnPurchase')->name('details.return.purchase');
     // Route::get('/invoice/return/purchase/{id}', 'InvoiceReturnPurchase')->name('invoice.return.purchase');
     Route::get('/edit/sale/{id}', 'EditSales')->name('edit.sale'); 
-    // Route::post('/update/return/purchase/{id}', 'UpdateReturnPurchase')->name('update.return.purchase');
+    Route::post('/update/sale/{id}', 'UpdateSales')->name('update.sale');
     // Route::get('/delete/return.purchase/{id}', 'DeleteReturnPurchase')->name('delete.return.purchase');
 
 });
