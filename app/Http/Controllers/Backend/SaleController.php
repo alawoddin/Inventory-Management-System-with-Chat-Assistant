@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\WareHouse;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -188,6 +189,22 @@ class SaleController extends Controller
           }  
     }
     // End Method 
+
+   public function DetailsSales($id){
+        $sales = Sale::with(['customer','saleItems.product'])->find($id);
+        return view('admin.backend.sales.details_sales',compact('sales'));
+
+    }
+     // End Method
+
+          public function InvoiceSales($id){
+        $sales = Sale::with(['customer','warehouse','saleItems.product'])->find($id);
+
+        $pdf = Pdf::loadView('admin.backend.sales.invoice_pdf',compact('sales'));
+        return $pdf->download('sales_'.$id.'.pdf');
+
+    }
+     // End Method 
 
 
 
