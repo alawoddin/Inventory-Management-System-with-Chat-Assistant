@@ -27,7 +27,7 @@ class SaleReturnController extends Controller
     public function AddSalesReturn(){
         $customers = Customer::all();
         $warehouses = WareHouse::all();
-        return view('admin.backend.return-sale.add_return_sales',compact('customers','warehouses'));
+        return view('admin.backend.return-sale.add_retrun_sales',compact('customers','warehouses'));
     }
      // End Method 
 
@@ -100,7 +100,7 @@ class SaleReturnController extends Controller
     }
     // End Method 
 
-   public function EditSalesReturn($id){
+    public function EditSalesReturn($id){
         $editData = SaleReturn::with('saleReturnItems.product')->findOrFail($id);
         $customers = Customer::all();
         $warehouses = WareHouse::all();
@@ -160,6 +160,51 @@ class SaleReturnController extends Controller
      return redirect()->route('all.sale.return')->with($notification);  
     }
     // End Method 
+
+    public function DetailsSalesReturn($id){
+        $sales = SaleReturn::with(['customer','saleReturnItems.product'])->find($id);
+        return view('admin.backend.return-sale.sales_return_details',compact('sales'));
+
+    }
+     // End Method 
+
+  public function DeleteSalesReturn($id)
+{
+    try {
+        DB::beginTransaction();
+
+        $sales = SaleReturn::find($id);
+        if (!$sales) {
+            return response()->json(['error' => 'Sale return not found'], 404);
+        }
+
+        $SalesItems = SaleReturnItem::where('sale_return_id', $id)->get();
+
+        foreach ($SalesItems as $item) {
+            $product = Product::find($item->product_id);
+            if ($product) {
+                $product->decrement('product_qty', $item->quantity);
+            }
+        }
+
+        SaleReturnItem::where('sale_return_id', $id)->delete();
+        $sales->delete();
+
+        DB::commit();
+
+        $notification = [
+            'message' => 'Sale Return Deleted Successfully',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('all.sale.return')->with($notification);
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+
 
 
 }

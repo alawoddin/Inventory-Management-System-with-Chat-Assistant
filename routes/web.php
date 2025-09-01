@@ -152,11 +152,11 @@ Route::controller(SaleReturnController::class)->group(function(){
     Route::get('/all/sale/return', 'AllSalesReturn')->name('all.sale.return');
     Route::get('/add/sale/return', 'AddSalesReturn')->name('add.sale.return');
     Route::post('/store/sale/return', 'StoreSalesReturn')->name('store.sale.return');
-    // Route::get('/details/sale/{id}', 'DetailsSales')->name('details.sale');
+    Route::get('/details/sale/return/{id}', 'DetailsSalesReturn')->name('details.sale.return');
     // Route::get('/invoice/sale/{id}', 'InvoiceSales')->name('invoice.sale');
     Route::get('/edit/sale/return/{id}', 'EditSalesReturn')->name('edit.sale.return'); 
     Route::post('/update/sale/return/{id}', 'UpdateSalesReturn')->name('update.sale.return');
-    // Route::get('/delete/sale/{id}', 'DeleteSales')->name('delete.sale');
+    Route::get('/delete/sale/return/{id}', 'DeleteSalesReturn')->name('delete.sale.return');
 
 });
 
