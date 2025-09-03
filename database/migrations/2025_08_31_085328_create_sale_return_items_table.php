@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('subtotal', 10 , 2);
             $table->timestamps();
 
-            $table->foreign('sale_return_id')->references('id')->on('sales')->onDelete('cascade');
+            $table->foreign('sale_return_id')->references('id')->on('sale_returns')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }

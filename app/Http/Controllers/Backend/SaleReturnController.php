@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use App\Models\Product; 
 use App\Models\Customer; 
 use App\Models\WareHouse;
@@ -18,7 +18,7 @@ use App\Models\SaleReturnItem;
 
 class SaleReturnController extends Controller
 {
-    public function AllSalesReturn(){
+   public function AllSalesReturn(){
         $allData = SaleReturn::orderBy('id','desc')->get();
         return view('admin.backend.return-sale.all_return_sales',compact('allData')); 
     }

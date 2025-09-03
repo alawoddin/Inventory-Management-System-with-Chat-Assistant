@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SaleReturn extends Model
 {
-         protected $guarded = []; 
+    protected $guarded = []; 
 
     public function customer(){
         return $this->belongsTo(Customer::class, 'customer_id');
@@ -19,4 +19,5 @@ class SaleReturn extends Model
     public function saleReturnItems(){
         return $this->hasMany(SaleReturnItem::class, 'sale_return_id');
     }
+
 }
