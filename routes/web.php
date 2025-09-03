@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\ReturnPurchaseController;
 use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SaleReturnController;
 use App\Http\Controllers\Backend\SupplierController;
+use App\Http\Controllers\Backend\TransferController;
 use App\Http\Controllers\Backend\WareHouseController;
 use App\Http\Controllers\googlecontroller;
 use App\Http\Controllers\ProfileController;
@@ -163,8 +164,11 @@ Route::controller(SaleReturnController::class)->group(function(){
 Route::controller(DueController::class)->group(function(){
     Route::get('/due/sale', 'DueSales')->name('due.sale');
     Route::get('/due/sale/return', 'DueSalesReturn')->name('due.sale.return');
- 
+});
 
+Route::controller(TransferController::class)->group(function(){
+    Route::get('/all/transfer', 'AllTransfer')->name('all.transfer');
+    Route::get('/add/transfer', 'AddTransfer')->name('add.transfer');
 });
 
 

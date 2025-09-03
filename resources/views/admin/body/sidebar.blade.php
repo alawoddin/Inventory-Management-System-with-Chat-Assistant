@@ -200,6 +200,25 @@
                     </div>
                 </li>
 
+                   <li>
+                    <a href="#transfer" data-bs-toggle="collapse">
+                        <i data-feather="alert-octagon"></i>
+                        <span> Transfer Setup  </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="transfer">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{route('all.transfer')}}" class="tp-link">all Transfer</a>
+                            </li>
+                            {{-- <li>
+                                <a href="{{route('due.sale.return')}}" class="tp-link">Sales Return Due</a>
+                            </li> --}}
+
+                        </ul>
+                    </div>
+                </li>
+
 
 
 
