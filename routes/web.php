@@ -162,7 +162,7 @@ Route::controller(SaleReturnController::class)->group(function(){
 
 Route::controller(DueController::class)->group(function(){
     Route::get('/due/sale', 'DueSales')->name('due.sale');
-    Route::get('/due/sale/ ', 'DueSalesReturn')->name('due.sale.return');
+    Route::get('/due/sale/return', 'DueSalesReturn')->name('due.sale.return');
  
 
 });
