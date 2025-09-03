@@ -243,7 +243,7 @@ function updateDueAmount() {
     if (dueAmount < 0) {
           dueAmount = 0;
     }
-    document.getElementById("dueAmount").textContent = `TK ${dueAmount.toFixed(2)}`;
+    document.getElementById("dueAmount").textContent = `AFG ${dueAmount.toFixed(2)}`;
     document.querySelector("input[name='due_amount']").value = dueAmount.toFixed(2);
 }
 

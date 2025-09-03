@@ -27,7 +27,7 @@ class SaleReturnController extends Controller
     public function AddSalesReturn(){
         $customers = Customer::all();
         $warehouses = WareHouse::all();
-        return view('admin.backend.return-sale.add_retrun_sales',compact('customers','warehouses'));
+        return view('admin.backend.return-sale.add_return_sales',compact('customers','warehouses'));
     }
      // End Method 
 
