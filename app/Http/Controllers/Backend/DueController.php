@@ -9,10 +9,22 @@ use Illuminate\Http\Request;
 
 class DueController extends Controller
 {
-    public function DueSales () {
-        $sales = Sale::with(['customer' , 'warehouse'])->select('id' , 'customer_id' , 'warehouse' , 'due_amount')
-        ->where('due_amount' , '>' , 0);
+    public function DueSales(){
+        $sales = Sale::with(['customer','warehouse'])
+            ->select('id','customer_id','warehouse_id','due_amount')
+            ->where('due_amount', '>', 0)
+            ->get();
+        return view('admin.backend.due.sale_due',compact('sales'));
 
-        return view('admin.backend.due.sale_due' , compact('sales'));
+    }
+    // End Method 
+
+    public function DueSalesReturn() {
+          $sales = Sale::with(['customer','warehouse'])
+            ->select('id','customer_id','warehouse_id','due_amount')
+            ->where('due_amount', '>', 0)
+            ->get();
+        return view('admin.backend.due.sale_return_due',compact('sales'));
+
     }
 }
