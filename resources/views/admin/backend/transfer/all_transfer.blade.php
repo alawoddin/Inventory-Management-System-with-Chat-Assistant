@@ -58,7 +58,7 @@
         <td>
    <a title="Details" href="{{ route('details.sale.return',$item->id) }}" class="btn btn-info btn-sm"> <span class="mdi mdi-eye-circle mdi-18px"></span> </a>  
 
-    <a title="Edit" href="{{ route('edit.sale.return',$item->id) }}" class="btn btn-success btn-sm"> <span class="mdi mdi-book-edit mdi-18px"></span> </a>  
+    <a title="Edit" href="{{ route('edit.transfer',$item->id) }}" class="btn btn-success btn-sm"> <span class="mdi mdi-book-edit mdi-18px"></span> </a>  
 
     <a title="Delete" href="{{ route('delete.sale.return',$item->id) }}" class="btn btn-danger btn-sm" id="delete"><span class="mdi mdi-delete-circle  mdi-18px"></span></a>    
         </td> 
