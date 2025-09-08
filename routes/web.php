@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\DueController;
 use App\Http\Controllers\Backend\ProCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PurchaseController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ReturnPurchaseController;
 use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SaleReturnController;
@@ -175,6 +176,10 @@ Route::controller(TransferController::class)->group(function(){
     Route::get('/delete/transfer/{id}', 'DeleteTransfer')->name('delete.transfer');
     Route::get('/details/transfer/{id}', 'DetailsTransfer')->name('details.transfer');
 
+});
+
+Route::controller(ReportController::class)->group(function() {
+    Route::get('/all/report' , 'AllReport')->name('all.report');
 });
 
 

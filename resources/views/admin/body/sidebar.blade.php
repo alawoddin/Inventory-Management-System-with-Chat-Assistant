@@ -190,26 +190,26 @@
                     <div class="collapse" id="due">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{route('due.sale')}}" class="tp-link">Sales Due</a>
+                                <a href="{{ route('due.sale') }}" class="tp-link">Sales Due</a>
                             </li>
                             <li>
-                                <a href="{{route('due.sale.return')}}" class="tp-link">Sales Return Due</a>
+                                <a href="{{ route('due.sale.return') }}" class="tp-link">Sales Return Due</a>
                             </li>
 
                         </ul>
                     </div>
                 </li>
 
-                   <li>
+                <li>
                     <a href="#transfer" data-bs-toggle="collapse">
                         <i data-feather="alert-octagon"></i>
-                        <span> Transfer Setup  </span>
+                        <span> Transfer Setup </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="transfer">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{route('all.transfer')}}" class="tp-link">all Transfer</a>
+                                <a href="{{ route('all.transfer') }}" class="tp-link">all Transfer</a>
                             </li>
                             {{-- <li>
                                 <a href="{{route('due.sale.return')}}" class="tp-link">Sales Return Due</a>
@@ -218,6 +218,27 @@
                         </ul>
                     </div>
                 </li>
+
+                       <li>
+                    <a href="#Report" data-bs-toggle="collapse">
+                        <i data-feather="alert-octagon"></i>
+                        <span> Report Setup </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="Report">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('all.report') }}" class="tp-link">all Reports</a>
+                            </li>
+                            {{-- <li>
+                                <a href="{{route('due.sale.return')}}" class="tp-link">Sales Return Due</a>
+                            </li> --}}
+
+                        </ul>
+                    </div>
+                </li>
+
+
 
 
 
