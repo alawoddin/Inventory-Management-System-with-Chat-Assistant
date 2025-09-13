@@ -9,7 +9,8 @@ use App\Models\WareHouse;
 use App\Models\Sale; 
 use App\Models\SaleReturn; 
 use Illuminate\Support\Facades\DB; 
-use App\Models\Purchase;  
+use App\Models\Purchase;
+use App\Models\ReturnPurchase;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -38,4 +39,10 @@ class ReportController extends Controller
 
     }
      // End Method 
+
+      public function PurchaseReturnReport(){
+        $returnPurchases = ReturnPurchase::with(['purchaseItems.product','supplier','warehouse'])->get();
+        return view('admin.backend.report.purchase_return_report',compact('returnPurchases')); 
+    }
+      // End Method 
 }
