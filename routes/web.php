@@ -184,6 +184,7 @@ Route::controller(ReportController::class)->group(function(){
     Route::get('/sale/return/report', 'SaleReturnReport')->name('sale.return.report');
 
     Route::get('/sale/report', 'SaleReport')->name('sale.report');
+    Route::get('/stock/report', 'ProductStockReport')->name('stock.report');
 
     Route::get('/filter-purchases', 'FilterPurchases')->name('filter-purchases'); 
     Route::get('/filter-sales', 'FilterSales')->name('filter-sales');
