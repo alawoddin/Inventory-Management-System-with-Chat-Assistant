@@ -45,4 +45,36 @@ class ReportController extends Controller
         return view('admin.backend.report.purchase_return_report',compact('returnPurchases')); 
     }
       // End Method 
+
+   
+
+       public function SaleReport(){
+        $saleReports = Sale::with(['saleItems.product','customer','warehouse'])->get();
+        return view('admin.backend.report.sale_report',compact('saleReports')); 
+    }
+    // End Method 
+
+     public function FilterSales(Request $request){
+
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $query = Sale::with(['saleItems.product','customer','warehouse']);
+
+        if ($startDate && $endDate ) {
+            $startDate = Carbon::parse($startDate)->startOfDay();
+            $endDate = Carbon::parse($endDate)->endOfDay();
+            $query->whereBetween('date',[$startDate,$endDate]);
+        }
+
+        $sales = $query->get();
+        return response()->json(['sales' => $sales]);
+
+    }
+     // End Method 
+
+       public function SaleReturnReport(){
+        $returnSales = SaleReturn::with(['saleReturnItems.product','customer','warehouse'])->get();
+        return view('admin.backend.report.sales_return_report',compact('returnSales')); 
+    }
+      // End Metho
 }

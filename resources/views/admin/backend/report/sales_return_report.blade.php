@@ -120,7 +120,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="{{route('sale.report')}}" class="nav-link" >Sale</a> 
+            <a href="" class="nav-link" >Sale</a> 
         </li>
         <li class="nav-item">
             <a href="" class="nav-link" >Sale Return</a> 
@@ -148,7 +148,7 @@
                     <tr role="row">
                         <th>ID</th>
                         <th>Date</th>
-                        <th>Supplier</th>
+                        <th>Customer</th>
                         <th>Warehouse</th>
                         <th>Product</th>
                         <th>Quantity</th>
@@ -158,18 +158,18 @@
                     </tr>
                 </thead>
             <tbody>
-            @foreach ($returnPurchases as $key=> $purchase) 
-            @foreach ($purchase->purchaseItems as $item) 
+            @foreach ($returnSales as $key=> $sales) 
+            @foreach ($sales->saleReturnItems as $item) 
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $purchase->date }}</td>
-                    <td>{{ $purchase->supplier->name ?? 'N/A' }}</td>
-                    <td>{{ $purchase->warehouse->name ?? 'N/A' }}</td>
+                    <td>{{ $sales->date }}</td>
+                    <td>{{ $sales->customer->name ?? 'N/A' }}</td>
+                    <td>{{ $sales->warehouse->name ?? 'N/A' }}</td>
                     <td>{{ $item->product->name ?? 'N/A'}}</td>
                     <td>{{ $item->quantity ?? 'N/A'}}</td>
                     <td>{{ $item->net_unit_cost ?? 'N/A'}}</td>
-                    <td>{{ $purchase->status ?? 'N/A' }}</td>
-                    <td>{{ $purchase->grand_total ?? 'N/A' }}</td> 
+                    <td>{{ $sales->status ?? 'N/A' }}</td>
+                    <td>{{ $sales->grand_total ?? 'N/A' }}</td> 
                 </tr>
                 @endforeach
                 @endforeach
