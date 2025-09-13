@@ -4,7 +4,8 @@
 <div class="content">
 
     <!-- Start Content-->
-    <div class="container-xxl">
+    {{-- <div class="container-xxl"> --}}
+          <div class="container-fluid my-0">
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -13,7 +14,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="{{ route('add.warehouse') }}" class="btn btn-secondary">Add Permission</a>
+                     <a href="{{ route('add.permission') }}" class="btn btn-secondary">Add Permission</a>
                 </ol>
             </div>
         </div>
@@ -44,8 +45,8 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->group_name }}</td> 
                 <td>
-            <a href="{{ route('edit.warehouse',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
-            <a href="{{ route('delete.warehouse',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
+            <a href="{{ route('edit.permission',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+            <a href="{{ route('delete.permission',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
                 </td> 
             </tr>
             @endforeach 
