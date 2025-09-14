@@ -262,6 +262,10 @@
                                 <a href="{{ route('all.roles') }}" class="tp-link">All Roles</a>
                             </li>
 
+                            <li>
+                                <a href="{{ route('add.roles.permission') }}" class="tp-link">Role & Permission</a>
+                            </li>
+
                         </ul>
                     </div>
                 </li>
