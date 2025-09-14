@@ -1,6 +1,13 @@
+
 @extends('admin.admin_master')
 @section('admin')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+    .form-check-label{
+        text-transform: capitalize;
+    }
+</style>
 
 <div class="content">
 
@@ -29,7 +36,7 @@
                     </div><!-- end card header -->
 
 <div class="card-body">
-    <form action="{{ route('store.permission') }}" method="post" class="row g-3" enctype="multipart/form-data">
+    <form action="{{ route('role.permission.store') }}" method="post" class="row g-3" enctype="multipart/form-data">
         @csrf
 
         <div class="col-md-6">
@@ -42,12 +49,47 @@
             </select>
         </div> 
 
+    <div class="form-check mb-2">
+    <input class="form-check-input" type="checkbox" id="formCheck1">
+    <label class="form-check-label" for="formCheck1">
+     Permission All 
+    </label>
+    </div>
 
-        <div class="col-md-6">
-            <label for="validationDefault01" class="form-label">Permission Name</label>
-            <input type="text" class="form-control" name="name"  > 
+    <hr>
+    @foreach ($permission_groups as $group)
+    <div class="row">
+        <div class="col-3">
+     <div class="form-check mb-2">
+    <input class="form-check-input" type="checkbox" value="" id="formCheck2">
+    <label class="form-check-label" for="formCheck2">
+     {{ $group->group_name }}
+    </label>
+    </div> 
         </div>
 
+
+  <div class="col-9">
+    @php
+        $permissions = App\Models\User::getpermissionByGroupName($group->group_name)
+    @endphp
+
+    @foreach ($permissions as $permission) 
+     <div class="form-check mb-2" id="section">
+    <input class="form-check-input" name="permission[]" value="{{ $permission->id }}" type="checkbox" id="flexCheckDefault{{ $permission->id }}">
+    <label class="form-check-label" for="flexCheckDefault{{ $permission->id }}">
+     {{ $permission->name }}
+    </label>
+    </div> 
+     @endforeach
+     <br> 
+
+      </div>  
+    </div> 
+    {{-- // End Row --}}
+        
+    @endforeach
+         
         
             
         <div class="col-12">
@@ -67,5 +109,24 @@
 
 </div>
  
+<script>
+    $('#formCheck1').click(function(){
+        if($(this).is(':checked')){
+            $('input[type=checkbox]').prop('checked',true)
+        }else {
+             $('input[type=checkbox]').prop('checked',false)
+        }
+    })
+</script>
+
+<script>
+    $('#formCheck2').click(function() {
+        if($(this).is(':checked')) {
+            $('#section input[type=checkbox]').prop('checked' , true)
+        }else {
+          $('#section input[type=checkbox]').prop('checked' , false)  
+        }
+    })
+</script>
 
 @endsection
