@@ -274,6 +274,24 @@
                     </div>
                 </li>
 
+                     <li>
+                    <a href="#Permission" data-bs-toggle="collapse">
+                        <i data-feather="package"></i>
+                        <span> Manage Admin  </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="Permission">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('all.admin') }}" class="tp-link">All Admin</a>
+                            </li>
+                         
+
+
+                        </ul>
+                    </div>
+                </li>
+
 
                 <li>
                     <a href="#sidebarAdvancedUI" data-bs-toggle="collapse">

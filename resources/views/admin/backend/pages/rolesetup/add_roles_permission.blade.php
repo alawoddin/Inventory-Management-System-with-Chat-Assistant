@@ -12,7 +12,7 @@
 <div class="content">
 
     <!-- Start Content-->
-    <div class="container-xxl">
+    <div class="container-fluid">
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -58,30 +58,30 @@
 
     <hr>
     @foreach ($permission_groups as $group)
-    <div class="row">
-        <div class="col-3">
-     <div class="form-check mb-2">
-    <input class="form-check-input" type="checkbox" value="" id="formCheck2">
-    <label class="form-check-label" for="formCheck2">
-     {{ $group->group_name }}
-    </label>
-    </div> 
+   <div class="row permission-group">
+    <div class="col-md-3">
+        <div class="form-check mb-2">
+            <input class="form-check-input group-checkbox" type="checkbox">
+            <label class="form-check-label">
+                {{ $group->group_name }}
+            </label>
         </div>
+    </div>
 
 
-  <div class="col-9">
+  <div class="col-md-9 section">
     @php
         $permissions = App\Models\User::getpermissionByGroupName($group->group_name)
     @endphp
 
-    @foreach ($permissions as $permission) 
-     <div class="form-check mb-2" id="section">
-    <input class="form-check-input" name="permission[]" value="{{ $permission->id }}" type="checkbox" id="flexCheckDefault{{ $permission->id }}">
-    <label class="form-check-label" for="flexCheckDefault{{ $permission->id }}">
-     {{ $permission->name }}
-    </label>
-    </div> 
-     @endforeach
+     @foreach ($permissions as $permission) 
+            <div class="form-check mb-2">
+                <input class="form-check-input" name="permission[]" value="{{ $permission->id }}" type="checkbox">
+                <label class="form-check-label">
+                    {{ $permission->name }}
+                </label>
+            </div> 
+        @endforeach
      <br> 
 
       </div>  
@@ -127,6 +127,15 @@
           $('#section input[type=checkbox]').prop('checked' , false)  
         }
     })
+</script>
+
+<script>
+    $(document).on('change', '.group-checkbox', function() {
+    let groupRow = $(this).closest('.permission-group'); 
+    let isChecked = $(this).is(':checked');
+
+    groupRow.find('.section input[type=checkbox]').prop('checked', isChecked);
+});
 </script>
 
 @endsection
