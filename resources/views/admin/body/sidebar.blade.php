@@ -37,7 +37,7 @@
 
     <li class="menu-title">Pages</li>
 
-   @if (Auth::guard('web')->check() && Auth::guard('web')->user()->can('brand.menu'))
+    @if (Auth::guard('web')->user()->can('brand.menu')) 
     <li>
         <a href="#sidebarAuth" data-bs-toggle="collapse">
             <i data-feather="users"></i>
@@ -46,7 +46,7 @@
         </a>
         <div class="collapse" id="sidebarAuth">
             <ul class="nav-second-level">
-       @if (Auth::guard('web')->check() && Auth::guard('web')->user()->can('all.brand'))  
+       @if (Auth::guard('web')->user()->can('all.brand'))   
       <li>
         <a href="{{ route('all.brand') }}" class="tp-link">All Brand</a>
        </li>
@@ -259,12 +259,12 @@
 
 
      <li>
-        <a href="#sidebarBaseui" data-bs-toggle="collapse">
+        <a href="#Admin" data-bs-toggle="collapse">
             <i data-feather="package"></i>
             <span> Manage Admin </span>
             <span class="menu-arrow"></span>
         </a>
-        <div class="collapse" id="sidebarBaseui">
+        <div class="collapse" id="Admin">
 <ul class="nav-second-level">
     <li>
         <a href="{{ route('all.admin') }}" class="tp-link">All Admin</a>
