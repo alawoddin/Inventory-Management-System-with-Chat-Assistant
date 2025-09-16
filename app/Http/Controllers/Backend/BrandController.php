@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 class BrandController extends Controller
 {
     public function AllBrand() {
+           if (!auth()->user()->hasPermissionTo('all.brand')) {
+            abort(403, 'Unauthorized Action');
+        }
         $brand = Brand::latest()->get();
         return view('admin.backend.brand.all_brand', compact('brand'));
     }
@@ -49,6 +52,9 @@ class BrandController extends Controller
     // end method
 
     public function EditBrand($id){
+          if (!auth()->user()->hasPermissionTo('edit.brand')) {
+            abort(403, 'Unauthorized Action');
+        }
         $brand = Brand::find($id);
         return view('admin.backend.brand.edit_brand',compact('brand'));
 
