@@ -9,13 +9,13 @@
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Add Admin</h4>
+                <h4 class="fs-18 fw-semibold m-0">Edit Admin</h4>
             </div>
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
                     
-                    <li class="breadcrumb-item active">Add Admin</li>
+                    <li class="breadcrumb-item active">Edit Admin</li>
                 </ol>
             </div>
         </div>
@@ -25,34 +25,30 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Add Admin</h5>
+                        <h5 class="card-title mb-0">Edit Admin</h5>
                     </div><!-- end card header -->
 
 <div class="card-body">
-    <form action="{{ route('store.admin') }}" method="post" class="row g-3" enctype="multipart/form-data">
+    <form action="{{ route('update.admin',$admin->id) }}" method="post" class="row g-3" enctype="multipart/form-data">
         @csrf
 
         <div class="col-md-6">
             <label for="validationDefault01" class="form-label">Admin Name</label>
-            <input type="text" class="form-control" name="name"  >  
+            <input type="text" class="form-control" name="name" value="{{ $admin->name }}"  >  
         </div>
 
           <div class="col-md-6">
             <label for="validationDefault01" class="form-label">Admin Email</label>
-            <input type="emal" class="form-control" name="email"  >  
+            <input type="emal" class="form-control" name="email"  value="{{ $admin->email }}"  >  
         </div>
-
-          <div class="col-md-6">
-            <label for="validationDefault01" class="form-label">Admin Password</label>
-            <input type="text" class="form-control" name="password"  >  
-        </div>
+ 
 
           <div class="col-md-6">
             <label for="validationDefault01" class="form-label">Role </label>
             <select name="roles" class="form-select" id="example-select">
                 <option value="" selected>Select Role</option>
                  @foreach ($roles as $role) 
-                <option value="{{ $role->id }}">{{ $role->name }}</option> 
+                <option value="{{ $role->id }}" {{ $admin->hasRole($role->name) ? 'selected' : '' }} >{{ $role->name }}</option> 
                   @endforeach
             </select>
         </div>

@@ -4,7 +4,7 @@
 <div class="content">
 
     <!-- Start Content-->
-    <div class="container-xxl">
+    <div class="container-fluid">
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
@@ -44,10 +44,14 @@
                 <td>{{ $key+1 }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td> 
-                <td> role </td>
+                 <td> 
+                @foreach ($item->roles as $role)
+                    <span class="badge badge-pill bg-danger">{{ $role->name ?? 'N/A' }}</span>
+                @endforeach
+                </td>
                 <td>
-            <a href="{{ route('edit.warehouse',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
-            <a href="{{ route('delete.warehouse',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
+             <a href="{{ route('edit.admin',$item->id) }}" class="btn btn-success btn-sm">Edit</a> 
+            <a href="{{ route('delete.admin',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>     
                 </td> 
             </tr>
             @endforeach 
