@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->string('token')->nullable();
             $table->string('google_id')->unique()->nullable();
             $table->string('google_token')->nullable();
             $table->string('google_refresh_token')->nullable();

@@ -58,6 +58,13 @@ Route::middleware('auth')->group(function () {
  
 });
 
+Route::get('/admin/forget/password', [AdminController::class, 'AdminForgetPassword'])->name('admin.forget_password');
+Route::post('/admin/password/submit', [AdminController::class, 'AdminPasswordSubmit'])->name('admin.password_submit');
+Route::get('/admin/reset-password/{token}/{email}', [AdminController::class, 'AdminResetPassword']);
+Route::post('/admin/reset/password/submit', [AdminController::class, 'AdminResetPasswordSubmit'])->name('admin.reset_password_submit');
+
+
+
 //backend controller is start
 
 Route::middleware('auth')->group(function() {
