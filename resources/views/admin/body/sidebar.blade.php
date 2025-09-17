@@ -57,7 +57,7 @@
     </li>
      @endif
 
- @if (Auth::guard('web')->user()->can('warehouse.menu')) 
+ {{-- @if (Auth::guard('web')->user()->can('warehouse.menu'))  --}}
     <li>
         <a href="#WareHouse" data-bs-toggle="collapse">
             <i data-feather="users"></i>
@@ -66,16 +66,16 @@
         </a>
         <div class="collapse" id="WareHouse">
             <ul class="nav-second-level">
-       @if (Auth::guard('web')->user()->can('all.warehouse'))  
+       {{-- @if (Auth::guard('web')->user()->can('all.warehouse'))   --}}
        <li>
         <a href="{{ route('all.warehouse') }}" class="tp-link">All WareHouse</a>
        </li>  
-       @endif 
+       {{-- @endif  --}}
                     
             </ul>
         </div>
     </li>
-      @endif
+      {{-- @endif --}}
 
 
     <li>

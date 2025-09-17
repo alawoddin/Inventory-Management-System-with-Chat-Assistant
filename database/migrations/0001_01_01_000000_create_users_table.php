@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('google_token')->nullable();
             $table->string('google_refresh_token')->nullable();
             $table->text('google_avatar')->nullable();
-            $table->string('role')->default('admin'); 
+            $table->string('role')->default('user'); 
             $table->string('status')->default('1'); 
             $table->rememberToken();
             $table->timestamps();
