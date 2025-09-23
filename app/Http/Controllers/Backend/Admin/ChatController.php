@@ -49,10 +49,12 @@ class ChatController extends Controller
 
      $data->save();
 
-     $notification = array(
+      $notification = array(
         'message' => 'Assistant Added Successfully',
         'alert-type' => 'success'
      );
+
+    
 
      return redirect()->route('all.assistants')->with($notification);
    }
