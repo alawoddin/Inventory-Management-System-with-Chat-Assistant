@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DueController;
@@ -235,6 +236,14 @@ Route::controller(AdminsController::class)->group(function() {
     Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin'); 
     Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin'); 
     Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');  
+
+});
+
+Route::controller(ChatController::class)->group(function() {
+
+    Route::get('/all/assistant' , 'AllAssistants')->name('all.assistants');
+    Route::get('/add/assistant' , 'AddAssistants')->name('add.assistants');
+    Route::post('/store/assistant', 'StoreAssistants')->name('store.assistants');
 
 });
 
