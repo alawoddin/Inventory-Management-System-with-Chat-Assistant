@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ChatAssistant;
 use App\Models\ChatConversation; 
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -67,4 +69,42 @@ class ChatController extends Controller
     }
   }
    //End private Method 
+
+     public function ChatAssistants($assistantId){
+
+    $assistant = ChatAssistant::findOrFail($assistantId);
+
+    $conversations = ChatConversation::where('chat_conversations.assistant_id',$assistantId)
+        ->where('chat_conversations.user_id', Auth::id())
+        ->select('latest.conversation_id', 'latest.id','latest.created_at','latest.message')
+        ->join('chat_conversations as latest', function($join) {
+            $join->on('latest.conversation_id', '=' , 'chat_conversations.conversation_id')
+                ->whereColumn('latest.id', '=', \DB::raw('(SELECT MAX(id) FROM chat_conversations as sub WHERE sub.conversation_id = chat_conversations.conversation_id)'));
+        })
+        ->groupBy('latest.conversation_id','latest.id','latest.created_at','latest.message')
+        ->orderBy('latest.created_at', 'desc')
+        ->get()
+        ->map(function($conv){
+            $conv->messages_count = ChatConversation::where('conversation_id', $conv->conversation_id ?? $conv->id)->count();
+            return $conv;
+        });
+
+         $selectedConversation = $conversations->first();
+
+        if ($selectedConversation) {
+            $messages = ChatConversation::where('assistant_id',$assistantId)
+                ->where('user_id', Auth::id())
+                ->where('conversation_id',$selectedConversation->conversation_id ?? $selectedConversation->id)
+                ->orderBy('created_at','asc')
+                ->get();
+        }else {
+            $messages = collect(); 
+        }
+
+      return view('admin.backend.assistant.chat_assistant',compact('assistant','conversations','messages','selectedConversation'));
+
+
+   }
+    //End Method 
+
 }

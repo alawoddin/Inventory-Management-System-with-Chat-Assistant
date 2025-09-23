@@ -31,7 +31,7 @@
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="card h-100 text-center border-0 shadow-sm">
                                 <div class="card-body">
-                                    <a href="{{ route('add.assistants',$item->id) }}" class="text-decoration-none text-dark">
+                                    <a href="{{ route('chat-assistants.chat',$item->id) }}" class="text-decoration-none text-dark">
                                         <div class="mb-3">
                                             <img src="{{ (!empty($item->avatar)) ? url('upload/avatar/'.$item->avatar) : url('upload/no_image.jpg') }}"
                                                  class="rounded-circle img-fluid border"
