@@ -246,6 +246,7 @@ Route::controller(ChatController::class)->group(function() {
     Route::post('/store/assistant', 'StoreAssistants')->name('store.assistants');
     
     Route::get('/chat-assistants/chat/{assistantId}', 'ChatAssistants')->name('chat-assistants.chat');
+    Route::post('/chat-assistants/send/{assistantId}', 'ChatSendMessage')->name('chat-assistants.send');
 
 });
 
