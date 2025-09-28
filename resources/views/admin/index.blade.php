@@ -1,5 +1,28 @@
 @extends('admin.admin_master')
 @section('admin')
+
+@php
+    $totalUsers = App\Models\User::count();
+    $newUsers = App\Models\User::whereMonth('created_at', now()->month)->count();
+    $percentage = $totalUsers > 0 ? round(($newUsers / $totalUsers) * 100, 2) : 0;
+@endphp
+
+@php
+    $totalproduct = App\Models\Product::count();
+    $newproduct = App\Models\Product::whereMonth('created_at', now()->month)->count();
+    $percentage = $totalproduct > 0 ? round(($newproduct / $totalproduct) * 100, 2) : 0;
+@endphp
+
+@php
+    $totalAmount = App\Models\Sale::sum('paid_amount');   // all sales
+    $paidAmount = App\Models\Sale::where('paid_amount', '>', 0)->sum('paid_amount'); // all paid
+    $percentage = $totalAmount > 0 ? round(($paidAmount / $totalAmount) * 100, 2) : 0;
+@endphp
+
+
+
+
+
     <div class="content">
 
         <!-- Start Content-->
@@ -22,20 +45,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <div class="fs-14 mb-1">Website Traffic</div>
+                                        <div class="fs-14 mb-1">All User Chart</div>
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">91.6K</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{$totalUsers}}</div>
                                         <div class="me-auto">
                                             <span class="text-primary d-inline-flex align-items-center">
-                                                15%
+                                                {{$percentage}}%
                                                 <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
                                         </div>
                                     </div>
-                                    <div id="website-visitors" class="apex-charts"></div>
+                                   <div id="website-visitors" class="apex-charts"></div>
                                 </div>
                             </div>
                         </div>
@@ -44,15 +67,16 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <div class="fs-14 mb-1">Conversion rate</div>
+                                        <div class="fs-14 mb-1">All Product Chart</div>
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">15%</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{$totalproduct}}</div>
                                         <div class="me-auto">
-                                            <span class="text-danger d-inline-flex align-items-center">
-                                                10%
-                                                <i data-feather="trending-down" class="ms-1"
+                
+                                            <span class="text-info d-inline-flex align-items-center">
+                                                {{$percentage}}%
+                                                <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
                                         </div>
@@ -66,14 +90,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <div class="fs-14 mb-1">Session duration</div>
+                                        <div class="fs-14 mb-1">Sale Total Amount</div>
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">90 Sec</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{$totalAmount}}</div>
                                         <div class="me-auto">
                                             <span class="text-success d-inline-flex align-items-center">
-                                                25%
+                                                {{$percentage}}%
                                                 <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
@@ -237,4 +261,7 @@
 
         </div> <!-- container-fluid -->
     </div>
+
+
+   
 @endsection
