@@ -290,25 +290,25 @@
                     </div>
                 </li>
 
-
+                
                 <li>
-                    <a href="#sidebarAdvancedUI" data-bs-toggle="collapse">
-                        <i data-feather="cpu"></i>
-                        <span> Extended UI </span>
+                    <a href="#backup" data-bs-toggle="collapse">
+                        <i data-feather="package"></i>
+                        <span> Back Up </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarAdvancedUI">
+                    <div class="collapse" id="backup">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="extended-carousel.html" class="tp-link">Carousel</a>
-                            </li>
-                            <li>
-                                <a href="extended-notifications.html" class="tp-link">Notifications</a>
+                                <a href="{{ route('database.backup') }}" class="tp-link">database backup</a>
                             </li>
 
                         </ul>
                     </div>
                 </li>
+
+
+          
 
 
             </ul>

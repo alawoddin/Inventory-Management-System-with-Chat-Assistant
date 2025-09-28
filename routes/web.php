@@ -235,7 +235,16 @@ Route::controller(AdminsController::class)->group(function() {
     Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
     Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin'); 
     Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin'); 
-    Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');  
+    Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin'); 
+
+
+    //backup database
+    Route::get('/database/backup','DatabaseBackup')->name('database.backup');
+    Route::get('/backup/now','BackupNow');
+    Route::get('{getFilename}','DownloadDatabase');
+
+    Route::get('/download/{getFilename}','DownloadDatabase')->name('download.database');
+    Route::get('/delete/database/{getFilename}','DeleteDatabase');
 
 });
 

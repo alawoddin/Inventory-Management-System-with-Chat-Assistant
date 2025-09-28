@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use Faker\Core\File as CoreFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminsController extends Controller
 {
@@ -95,4 +99,49 @@ class AdminsController extends Controller
 
     }
      // End Method
+
+
+    //  backup database method 
+
+      public function DatabaseBackup(){
+
+        return view('admin.db_backup')->with('files',File::allFiles(storage_path('/app/private/inventorysystem')));
+
+    }// End Method 
+
+       public function BackupNow(){
+        \Artisan::call('backup:run');
+
+          $notification = array(
+            'message' => 'Database Backup Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+
+    }// End Method 
+  
+
+    public function DownloadDatabase($getFilename){
+
+         $path = storage_path('app/private/inventorysystem/' . $getFilename);
+        return response()->download($path);
+
+    }// End Method 
+
+     public function DeleteDatabase($getFilename){
+
+        Storage::delete('inventorysystem/'.$getFilename);
+
+         $notification = array(
+            'message' => 'Database Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+
+    }// End Method
+
 }
