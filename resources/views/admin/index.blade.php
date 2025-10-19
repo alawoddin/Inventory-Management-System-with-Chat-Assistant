@@ -154,106 +154,48 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4">
-                    <div class="card overflow-hidden">
+{{-- Recent Actions Section --}}
+@php
+    $recentActivities = \App\Models\Activity::with('user')->latest()->take(10)->get();
+@endphp
 
-                        <div class="card-header">
-                            <div class="d-flex align-items-center">
-                                <div class="border border-dark rounded-2 me-2 widget-icons-sections">
-                                    <i data-feather="tablet" class="widgets-icons"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Best Traffic Source</h5>
-                            </div>
-                        </div>
-
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-traffic mb-0">
-                                    <tbody>
-                                        <thead>
-                                            <tr>
-                                                <th>Network</th>
-                                                <th colspan="2">Visitors</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tr>
-                                            <td>Instagram</td>
-                                            <td>3,550</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-danger" style="width: 80.0%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Facebook</td>
-                                            <td>1,245</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-primary" style="width: 55.9%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Twitter</td>
-                                            <td>1,798</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-secondary" style="width: 67.0%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>YouTube</td>
-                                            <td>986</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-success" style="width: 38.72%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Pinterest</td>
-                                            <td>854</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-danger" style="width: 45.08%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Linkedin</td>
-                                            <td>650</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-warning" style="width: 68.0%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Nextdoor</td>
-                                            <td>420</td>
-                                            <td class="w-50">
-                                                <div class="progress progress-md mt-0">
-                                                    <div class="progress-bar bg-info" style="width: 56.4%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
+<div class="col-md-6 col-xl-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <div class="border border-dark rounded-2 me-2 widget-icons-sections">
+                    <i data-feather="clock" class="widgets-icons"></i>
                 </div>
+                <h5 class="card-title mb-0">Recent Actions</h5>
+            </div>
+        </div>
+
+        <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+            @forelse($recentActivities as $activity)
+                <div class="mb-2">
+                    <strong>
+                        @if($activity->user)
+                            {{ $activity->user->name }}
+                        @else
+                            System
+                        @endif
+                        — {{ ucfirst($activity->action) }} {{ $activity->model }}
+                    </strong>
+                    <br>
+                    <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
+                </div>
+                <hr>
+            @empty
+                <p>No recent activity found.</p>
+            @endforelse
+        </div>
+    </div>
+</div>
+
+
+
+
+              
             </div>
             <!-- End Monthly Sales -->
 

@@ -21,6 +21,11 @@ class User extends Authenticatable
      */
     protected $guarded = [];
 
+    //    protected $casts = [
+    //     'last_activity' => 'datetime',
+    //     'email_verified_at' => 'datetime',
+    // ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
