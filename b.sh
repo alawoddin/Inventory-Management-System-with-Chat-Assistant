@@ -6,21 +6,20 @@ echo      GIT AUTO COMMIT & PUSH BOT
 echo ==========================================
 echo.
 
-REM Get today's date only
-for /f "tokens=1-4 delims=/ " %%a in ('date /t') do (set mydate=%%a-%%b-%%c)
-
-REM Commit message is ONLY today's date
-set commitMsg=%mydate%
-
-echo Using commit message: "%commitMsg%"
-echo.
+TZ=Asia/Kabul
+TODAY="$(date +'%Y-%m-%d')"
+DEFAULT_MSG="Last Update - ${TODAY}"
+COMMIT_MSG="${*:-$DEFAULT_MSG}"
 
 echo Adding files...
 git add .
 
+
+# Commit and push to origin main
+
 echo.
 echo Committing files...
-git commit -m "%commitMsg%"
+git commit -m "$COMMIT_MSG"
 
 echo.
 echo Pushing to GitHub...
