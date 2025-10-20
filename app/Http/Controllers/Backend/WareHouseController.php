@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 
@@ -30,12 +31,21 @@ class WareHouseController extends Controller
             'city' => 'nullable|string|max:255',
         ]);
 
-        WareHouse::create([
+        $warehouse = WareHouse::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'city' => $validated['city'],
         ]);
+
+        Activity::create([
+            'user_id'  => auth()->id(),
+            'action'   => 'Created',
+            'model'    => 'WareHouse',
+            'model_id' => $warehouse->id,
+        ]);
+
+          
 
         $notification = array(
             'message' => 'WareHouse Inserted Successfully',
@@ -56,6 +66,8 @@ class WareHouseController extends Controller
      public function UpdateWarehouse(Request $request){
         $ware_id = $request->id;
 
+        $warehouse = WareHouse::find($ware_id);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:ware_houses,email|max:255',
@@ -70,6 +82,13 @@ class WareHouseController extends Controller
             'city' => $validated['city'],
         ]);
 
+           Activity::create([
+            'user_id'  => auth()->id(),
+            'action'   => 'Updated',
+            'model'    => 'WareHouse',
+            'model_id' => $warehouse->id,
+        ]);
+
         $notification = array(
             'message' => 'WareHouse Updated Successfully',
             'alert-type' => 'success'
@@ -79,15 +98,30 @@ class WareHouseController extends Controller
     }
     //End Method 
 
-    public function DeleteWarehouse($id){
+public function DeleteWarehouse($id)
+{
+    // Fetch warehouse before delete to get name (optional but good)
+    $warehouse = WareHouse::find($id);
 
-        WareHouse::find($id)->delete();
+    if ($warehouse) {
+        // Delete the record
+        $warehouse->delete();
 
-        $notification = array(
-            'message' => 'WareHouse Deleted Successfully',
-            'alert-type' => 'success'
-         ); 
-         return redirect()->back()->with($notification); 
+        // 📝 Log Delete Activity
+        Activity::create([
+            'user_id'  => auth()->id(),
+            'action'   => 'Deleted',
+            'model'    => 'Warehouse',
+            'model_id' => $id,
+        ]);
     }
-    //End Method 
+
+    $notification = [
+        'message' => 'Warehouse Deleted Successfully',
+        'alert-type' => 'success'
+    ];
+    
+    return redirect()->back()->with($notification);
+}
+//End Method
 }

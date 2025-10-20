@@ -84,6 +84,7 @@
     <!-- Apexcharts JS -->
     <script src="{{ asset('backend/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
+
     <!-- for basic area chart -->
     <script src="https://apexcharts.com/samples/assets/stock-prices.js"></script>
 
@@ -107,6 +108,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{ asset('backend/assets/js/code.js') }}"></script>
+    {{-- <script src="{{ asset('backend/assets/js/monthly-sales.js') }}"></script> --}}
+
 
 
     <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>

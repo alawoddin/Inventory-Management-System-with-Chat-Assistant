@@ -1,23 +1,22 @@
 @extends('admin.admin_master')
 @section('admin')
+    @php
+        $totalUsers = App\Models\User::count();
+        $newUsers = App\Models\User::whereMonth('created_at', now()->month)->count();
+        $percentage = $totalUsers > 0 ? round(($newUsers / $totalUsers) * 100, 2) : 0;
+    @endphp
 
-@php
-    $totalUsers = App\Models\User::count();
-    $newUsers = App\Models\User::whereMonth('created_at', now()->month)->count();
-    $percentage = $totalUsers > 0 ? round(($newUsers / $totalUsers) * 100, 2) : 0;
-@endphp
+    @php
+        $totalproduct = App\Models\Product::count();
+        $newproduct = App\Models\Product::whereMonth('created_at', now()->month)->count();
+        $percentage = $totalproduct > 0 ? round(($newproduct / $totalproduct) * 100, 2) : 0;
+    @endphp
 
-@php
-    $totalproduct = App\Models\Product::count();
-    $newproduct = App\Models\Product::whereMonth('created_at', now()->month)->count();
-    $percentage = $totalproduct > 0 ? round(($newproduct / $totalproduct) * 100, 2) : 0;
-@endphp
-
-@php
-    $totalAmount = App\Models\Sale::sum('paid_amount');   // all sales
-    $paidAmount = App\Models\Sale::where('paid_amount', '>', 0)->sum('paid_amount'); // all paid
-    $percentage = $totalAmount > 0 ? round(($paidAmount / $totalAmount) * 100, 2) : 0;
-@endphp
+    @php
+        $totalAmount = App\Models\Sale::sum('paid_amount'); // all sales
+        $paidAmount = App\Models\Sale::where('paid_amount', '>', 0)->sum('paid_amount'); // all paid
+        $percentage = $totalAmount > 0 ? round(($paidAmount / $totalAmount) * 100, 2) : 0;
+    @endphp
 
 
 
@@ -26,7 +25,7 @@
     <div class="content">
 
         <!-- Start Content-->
-         <div class="container-fluid my-0">
+        <div class="container-fluid my-0">
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
@@ -39,7 +38,7 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="row g-3">
 
-      
+
 
                         <div class="col-md-6 col-xl-3">
                             <div class="card">
@@ -49,16 +48,16 @@
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{$totalUsers}}</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $totalUsers }}</div>
                                         <div class="me-auto">
                                             <span class="text-primary d-inline-flex align-items-center">
-                                                {{$percentage}}%
+                                                {{ $percentage }}%
                                                 <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
                                         </div>
                                     </div>
-                                   <div id="website-visitors" class="apex-charts"></div>
+                                    <div id="website-visitors" class="apex-charts"></div>
                                 </div>
                             </div>
                         </div>
@@ -71,11 +70,11 @@
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{$totalproduct}}</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $totalproduct }}</div>
                                         <div class="me-auto">
-                
+
                                             <span class="text-info d-inline-flex align-items-center">
-                                                {{$percentage}}%
+                                                {{ $percentage }}%
                                                 <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
@@ -94,10 +93,10 @@
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{$totalAmount}}</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $totalAmount }}</div>
                                         <div class="me-auto">
                                             <span class="text-success d-inline-flex align-items-center">
-                                                {{$percentage}}%
+                                                {{ $percentage }}%
                                                 <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
@@ -108,6 +107,10 @@
                             </div>
                         </div>
 
+                        @php
+                            $allwarehouses = App\Models\WareHouse::count();
+                        @endphp
+
                         <div class="col-md-6 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
@@ -116,10 +119,10 @@
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">
-                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">2,986</div>
+                                        <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $allwarehouses }}</div>
                                         <div class="me-auto">
                                             <span class="text-success d-inline-flex align-items-center">
-                                                4%
+
                                                 <i data-feather="trending-up" class="ms-1"
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
@@ -132,6 +135,26 @@
                     </div>
                 </div> <!-- end sales -->
             </div> <!-- end row -->
+
+            @php
+                use App\Models\Sale;
+                use Illuminate\Support\Facades\DB;
+
+                // Last 6 months Paid vs Due
+                $salesData = Sale::select(
+                    DB::raw("DATE_FORMAT(date, '%b') as month"),
+                    DB::raw('SUM(paid_amount) as paid'),
+                    DB::raw('SUM(due_amount)  as due'),
+                )
+                    ->whereYear('date', date('Y'))
+                    ->where('date', '>=', now()->subMonths(6))
+                    ->groupBy('month')
+                    ->get();
+
+                $months = $salesData->pluck('month');
+                $paidTotals = $salesData->pluck('paid');
+                $dueTotals = $salesData->pluck('due');
+            @endphp
 
             <!-- Start Monthly Sales -->
             <div class="row">
@@ -154,48 +177,48 @@
                     </div>
                 </div>
 
-{{-- Recent Actions Section --}}
-@php
-    $recentActivities = \App\Models\Activity::with('user')->latest()->take(10)->get();
-@endphp
+                {{-- Recent Actions Section --}}
+                @php
+                    $recentActivities = \App\Models\Activity::with('user')->latest()->take(10)->get();
+                @endphp
 
-<div class="col-md-6 col-xl-4">
-    <div class="card">
-        <div class="card-header">
-            <div class="d-flex align-items-center">
-                <div class="border border-dark rounded-2 me-2 widget-icons-sections">
-                    <i data-feather="clock" class="widgets-icons"></i>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="border border-dark rounded-2 me-2 widget-icons-sections">
+                                    <i data-feather="clock" class="widgets-icons"></i>
+                                </div>
+                                <h5 class="card-title mb-0">Recent Actions</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-body" style="max-height: 345px; overflow-y: auto;">
+                            @forelse($recentActivities as $activity)
+                                <div class="mb-2">
+                                    <strong>
+                                        @if ($activity->user)
+                                            {{ $activity->user->name }}
+                                        @else
+                                            System
+                                        @endif
+                                        — {{ ucfirst($activity->action) }} {{ $activity->model }}
+                                    </strong>
+                                    <br>
+                                    <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
+                                </div>
+                                <hr>
+                            @empty
+                                <p>No recent activity found.</p>
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
-                <h5 class="card-title mb-0">Recent Actions</h5>
-            </div>
-        </div>
-
-        <div class="card-body" style="max-height: 300px; overflow-y: auto;">
-            @forelse($recentActivities as $activity)
-                <div class="mb-2">
-                    <strong>
-                        @if($activity->user)
-                            {{ $activity->user->name }}
-                        @else
-                            System
-                        @endif
-                        — {{ ucfirst($activity->action) }} {{ $activity->model }}
-                    </strong>
-                    <br>
-                    <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
-                </div>
-                <hr>
-            @empty
-                <p>No recent activity found.</p>
-            @endforelse
-        </div>
-    </div>
-</div>
 
 
 
 
-              
+
             </div>
             <!-- End Monthly Sales -->
 
@@ -203,7 +226,5 @@
 
         </div> <!-- container-fluid -->
     </div>
-
-
-   
+    
 @endsection
