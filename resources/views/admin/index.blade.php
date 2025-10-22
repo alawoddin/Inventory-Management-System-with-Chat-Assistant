@@ -115,7 +115,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <div class="fs-14 mb-1">Active Users</div>
+                                        <div class="fs-14 mb-1">Active Warehouse</div>
                                     </div>
 
                                     <div class="d-flex align-items-baseline mb-2">

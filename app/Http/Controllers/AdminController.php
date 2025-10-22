@@ -24,7 +24,7 @@ class AdminController extends Controller
             'alert-type' => 'info'
         );
 
-        return redirect('login')->with($notification);
+        return redirect('/')->with($notification);
     }
     //end method
 
