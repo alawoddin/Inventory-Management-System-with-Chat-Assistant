@@ -10,6 +10,8 @@ use App\Mail\Websitemail;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Mail;
 use App\Models\users;
+use App\Models\Sale;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -218,5 +220,39 @@ class AdminController extends Controller
         return redirect()->route('login')->with($notification);
     }
     // End Method
+
+    public function Dashboard(){
+       
+        $year = now()->year;
+
+        // Get monthly sums from DB for the current year
+        $rows = Sale::selectRaw('MONTH(created_at) as month, SUM(paid_amount) as paid, SUM(due_amount) as due')
+            ->whereYear('created_at', $year)
+            ->groupBy('month')
+            ->get();
+
+        // Prepare 12-month arrays with zero defaults
+        $categories = [];
+        $paidSeries  = array_fill(1, 12, 0);
+        $dueSeries   = array_fill(1, 12, 0);
+
+        foreach ($rows as $r) {
+            $paidSeries[(int)$r->month] = (float)$r->paid;
+            $dueSeries[(int)$r->month]  = (float)$r->due;
+        }
+
+        for ($m = 1; $m <= 12; $m++) {
+            $categories[] = Carbon::create($year, $m, 1)->format('M'); // Jan, Feb, ...
+        }
+
+        $chart = [
+            'categories' => $categories,
+            'paid'       => array_values($paidSeries),
+            'due'        => array_values($dueSeries),
+            'year'       => $year,
+        ];
+
+        return view('admin.index', compact('chart'));
+    }
 
 }

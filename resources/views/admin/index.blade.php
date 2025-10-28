@@ -158,24 +158,23 @@
 
             <!-- Start Monthly Sales -->
             <div class="row">
-                <div class="col-md-6 col-xl-8">
-                    <div class="card">
 
-                        <div class="card-header">
-                            <div class="d-flex align-items-center">
-                                <div class="border border-dark rounded-2 me-2 widget-icons-sections">
-                                    <i data-feather="bar-chart" class="widgets-icons"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Monthly Sales</h5>
+               <div class="col-md-6 col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <div class="border border-dark rounded-2 me-2 widget-icons-sections">
+                                <i data-feather="bar-chart" class="widgets-icons"></i>
                             </div>
+                            <h5 class="card-title mb-0">Monthly Sales ({{ $chart['year'] ?? now()->year }})</h5>
                         </div>
+                    </div>
 
-                        <div class="card-body">
-                            <div id="monthly-sales" class="apex-charts"></div>
-                        </div>
-
+                    <div class="card-body">
+                        <div id="monthly-sales" class="apex-charts"></div>
                     </div>
                 </div>
+            </div>
 
                 {{-- Recent Actions Section --}}
                 @php
@@ -226,5 +225,62 @@
 
         </div> <!-- container-fluid -->
     </div>
-    
+
+    {{-- ApexCharts CDN (once per page) --}}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // PHP → JS
+    const categories = @json($chart['categories'] ?? []);
+    const paid       = @json($chart['paid'] ?? []);
+    const due        = @json($chart['due'] ?? []);
+
+    // Fallback if no data
+    if (!categories.length) {
+        document.querySelector('#monthly-sales').innerHTML =
+            '<div class="text-muted">No sales data yet.</div>';
+        return;
+    }
+
+    const options = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: { show: false }
+        },
+        series: [
+            { name: 'Paid Amount', data: paid },
+            { name: 'Due Amount',  data: due  }
+        ],
+        xaxis: {
+            categories: categories,
+            axisBorder: { show: false },
+            axisTicks:  { show: false }
+        },
+        dataLabels: { enabled: false },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                borderRadius: 6
+            }
+        },
+        stroke: { show: true, width: 2 },
+        grid: { strokeDashArray: 4 },
+        legend: { position: 'top' },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    // Format with 2 decimals; change to your currency if you like
+                    return new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(val);
+                }
+            }
+        }
+    };
+
+    const chart = new ApexCharts(document.querySelector("#monthly-sales"), options);
+    chart.render();
+});
+</script>
 @endsection

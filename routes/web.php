@@ -33,9 +33,7 @@ Route::get('/', function () {
 //     return view('auth.login');
 // });
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -68,7 +66,18 @@ Route::post('/admin/reset/password/submit', [AdminController::class, 'AdminReset
 
 //backend controller is start
 
+// Route::get('/dashboard', function () {
+//     return view('admin.index');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::middleware('auth')->group(function() {
+
+
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/dashboard' , 'Dashboard')->name('dashboard');
+    });
+
+
   
 Route::controller(BrandController::class)->group(function() {
         Route::get('/all/brand' , 'AllBrand')->name('all.brand');
