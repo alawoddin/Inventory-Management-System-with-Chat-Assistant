@@ -215,6 +215,12 @@
                 </div>
 
 
+            <a href="{{ asset('download/MyAppInstaller.exe') }}" class="btn btn-primary">
+    Install App
+</a>
+
+
+
 
 
 
@@ -228,6 +234,28 @@
 
     {{-- ApexCharts CDN (once per page) --}}
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the default mini-infobar from appearing
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response: ${outcome}`);
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+    }
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {

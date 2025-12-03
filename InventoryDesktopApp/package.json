@@ -1,0 +1,34 @@
+{
+  "name": "inventory-standalone",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^39.2.2",
+    "electron-builder": "^26.0.12",
+    "cross-spawn": "^8.0.0"
+  },
+  "build": {
+    "appId": "com.inventory.standalone",
+    "productName": "InventorySystem",
+    "files": [
+      "**/*",
+      "../laravel/**",
+      "../php-win64/**"
+    ],
+    "extraResources": [
+      "../laravel",
+      "../php-win64"
+    ],
+    "win": {
+      "target": "nsis",
+      "arch": ["x64","ia32"]
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

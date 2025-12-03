@@ -9,6 +9,11 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
     <meta name="author" content="Zoyothemes" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="#0d6efd">
+
+
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
@@ -93,6 +98,7 @@
 
     <!-- App js-->
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/main.js') }}"></script>
 
       <script src="{{ asset('backend/assets/js/custome.js') }}"></script>
 
