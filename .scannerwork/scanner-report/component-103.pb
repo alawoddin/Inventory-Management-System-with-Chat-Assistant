@@ -1,0 +1,1 @@
+g 2phpX'hr@database/migrations/2025_09_03_110619_create_transfers_table.php

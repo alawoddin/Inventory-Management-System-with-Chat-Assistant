@@ -1,0 +1,1 @@
+n 2jsX@hrInventoryDesktopApp/main.js

@@ -1,0 +1,1 @@
+c 2phpX*hr<database/migrations/2025_08_25_104423_create_sales_table.php

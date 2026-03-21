@@ -1,0 +1,1 @@
+ 2phpX3hr6app/Http/Controllers/Auth/RegisteredUserController.php

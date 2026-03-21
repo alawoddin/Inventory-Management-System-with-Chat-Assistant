@@ -1,0 +1,1 @@
+W 2phpX:hr;database/migrations/0001_01_01_000002_create_jobs_table.php

@@ -1,0 +1,1 @@
+l 2phpX hrAdatabase/migrations/2025_10_19_192249_create_activities_table.php

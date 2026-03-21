@@ -1,61 +1,220 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📦 Advanced Inventory Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Overview
 
-## About Laravel
+Advanced Inventory Management System is a robust web-based application built with Laravel and MySQL for managing products, warehouses, and business inventory operations.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This system is designed for real-world business use, featuring multi-warehouse support, purchase tracking, role-based access control, and secure authentication including social login.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Key Features
 
-## Learning Laravel
+### 👨‍💼 Admin Dashboard
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* 📦 Manage products (Add / Update / Delete)
+* 🏬 Warehouse management system
+* 🔄 Transfer items between warehouses
+* 💰 Purchase management with due tracking
+* 📊 Generate reports and analytics
+* 👥 Role & Permission management system
+* 💾 Backup system for data protection
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🔐 Authentication System
 
-## Laravel Sponsors
+* Secure login and registration
+* Social login integration (Google account)
+* Role-based access control (Admin / User)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+### 🏬 Warehouse & Inventory
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* Multi-warehouse support
+* Track stock levels per warehouse
+* Transfer inventory between locations
+* Monitor product availability in real-time
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 💵 Purchase & Financial System
 
-## Code of Conduct
+* Record product purchases
+* Track payment status (paid / due)
+* Manage supplier-related transactions (if applicable)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### ⚡ Core Features
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* Real-time inventory tracking
+* Clean and scalable database design
+* Secure authentication system
+* Business-level logic implementation
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🛠 Tech Stack
+
+* **Backend:** Laravel (PHP)
+* **Frontend:** Blade Templates
+* **Database:** MySQL
+* **Authentication:** Laravel Auth + Google OAuth
+* **Authorization:** Role & Permission System
+* **Version Control:** Git & GitHub
+
+---
+
+## 📷 Screenshots
+
+### 🔹 Admin Login Page
+
+![Login](screenshots/admin_login.png)
+
+### 🔹 Admin Login With Google Account
+
+![Google Accounnt Login](screenshots/google_login.png)
+
+
+### 🔹 Dashboard
+
+![Dashboard](screenshots/admin_dashboard.png)
+
+### 🔹 Purchase Management
+
+![Purchase](screenshots/purchase.png)
+
+### 🔹 Transfer Between Warehouses
+
+![Transfer Between Warehouses](screenshots/transfer.png)
+
+### 🔹 Report System
+
+![Report System](screenshots/report.png)
+
+### 🔹 Chat Assistants System
+
+![Chat Assistants System](screenshots/chat-assistants.png)
+
+### 🔹 Role and permission System
+
+![Role](screenshots/role.png)
+
+### 🔹 Sale
+
+![sale](screenshots/sale.png)
+
+---
+
+## 🔗 Live Demo
+
+👉 http://127.0.0.1:8000/
+
+---
+
+## Installed Packages
+
+The following Laravel packages are used in this project:
+
+📄 barryvdh/laravel-dompdf — Generate PDF reports
+💾 spatie/laravel-backup — Automated database & file backups
+🖼 intervention/image — Image processing and manipulation
+🤖 openai-php/laravel — OpenAI API integration
+🔐 laravel/socialite — Social login (Google authentication)
+🕒 spatie/laravel-activitylog — Track user activity and system logs
+
+## Install Dependencies
+
+Run the following commands:
+
+composer require barryvdh/laravel-dompdf
+composer require spatie/laravel-backup
+composer require intervention/image
+composer require openai-php/laravel
+composer require laravel/socialite
+composer require spatie/laravel-activitylog
+
+
+
+
+
+## ⚙️ Installation
+
+
+### 1️⃣ Clone the repository
+
+```bash id="inv1"
+git clone https://github.com/alawoddin/InventorySystem.git
+cd inventory-system
+```
+
+### 2️⃣ Install dependencies
+
+```bash id="inv2"
+composer install
+npm install
+```
+
+### 3️⃣ Setup environment
+
+```bash id="inv3"
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4️⃣ Configure database
+
+```env id="inv4"
+DB_DATABASE=your_database
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5️⃣ Run migrations
+
+```bash id="inv5"
+php artisan migrate
+```
+
+### 6️⃣ Run the application
+
+```bash id="inv6"
+php artisan serve
+npm run dev
+```
+
+---
+
+## 🎯 Use Cases
+
+* Retail businesses
+* Warehouses & distribution centers
+* Inventory-heavy companies
+* Multi-location stock management
+
+---
+
+## 🚀 Future Improvements
+
+* Barcode & QR code scanning
+* Supplier management system
+* Export reports (PDF / Excel)
+* Notification system (low stock alerts)
+* Multi-user collaboration
+
+---
+
+## 👨‍💻 Author
+
+**Alawoddin Khedmat**
+Full-Stack Laravel Developer
+
+🔗 GitHub: https://github.com/alawoddin
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.

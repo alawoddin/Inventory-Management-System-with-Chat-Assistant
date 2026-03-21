@@ -1,0 +1,1 @@
+| 2cssXhr+public/backend/assets/css/icons-rtl.min.css

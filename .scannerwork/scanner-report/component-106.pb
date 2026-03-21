@@ -1,0 +1,1 @@
+j 2phpX#hrFdatabase/migrations/2025_09_23_115040_create_chat_assistants_table.php

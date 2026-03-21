@@ -1,0 +1,1 @@
+] 2phpX0hr?database/migrations/2025_08_12_131509_create_products_table.php

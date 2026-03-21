@@ -1,0 +1,1 @@
+_ 2phpX'hr@database/migrations/2025_08_16_102132_create_purchases_table.php

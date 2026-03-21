@@ -1,0 +1,1 @@
+[ 2phpX hr@database/migrations/2025_08_12_100431_create_customers_table.php

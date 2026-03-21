@@ -1,0 +1,1 @@
+\ 2phpXhrIdatabase/migrations/2025_08_12_105701_create_product_categories_table.php

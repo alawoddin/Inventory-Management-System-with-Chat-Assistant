@@ -1,0 +1,1 @@
+Y 2phpX hrBdatabase/migrations/2025_08_11_112135_create_ware_houses_table.php
