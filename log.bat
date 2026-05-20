@@ -9,3 +9,4 @@ for /l %%x in (1, 1, 10) do (
 
 git push origin main
 i commit the code but not show the commit it is scure 1 
+i commit the code but not show the commit it is scure 2 
