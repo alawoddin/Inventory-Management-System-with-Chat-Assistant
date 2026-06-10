@@ -30,3 +30,4 @@ i commit the code but not show the commit it is scure 8
 i commit the code but not show the commit it is scure 9 
 i commit the code but not show the commit it is scure 10 
 i commit the code but not show the commit it is scure 1 
+i commit the code but not show the commit it is scure 2 
